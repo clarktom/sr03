@@ -7,15 +7,22 @@
 #include <sys/wait.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <signal.h>
+#include <errno.h>
 
 #include "defobj.h"
 
 void process_data(int sockfd, int curr_pid);
+void handler (int sig);
 
 int main(int argc, char* argv[])
 {
 
 	int sd, newsd, pid, res, curr_pid;
+	struct sigaction sa;
+	sa.sa_handler = &handler;
+	sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
+	sigaction(SIGCHLD, &sa, 0);
 
 	// AF_INET IPv4 protocol
 	// socket(int domain, int type, int protocol)
@@ -70,10 +77,16 @@ int main(int argc, char* argv[])
 		accept, accept4 - accept a connection on a socket
 		int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 		*/
+		printf("tcpser: waiting for client %d\n", getpid());
 		newsd = accept(sd, 0, 0);
-		if (newsd==-1){
-			printf("tcpser: err accept");
-			exit(-1);
+		if (newsd == -1){
+			if (EINTR==errno) {
+				continue; /* Restart accept */
+			}
+			else {
+				printf("tcpser: err accept %d\n", getpid());
+				exit(-1);
+			}
 		}	
 
 		pid = fork();
@@ -81,16 +94,22 @@ int main(int argc, char* argv[])
 			printf("tcpser: err fork");
 			exit(-1);
 		}
-		else if (pid != 0) {
-			printf("tcpser: waiting for process %d to finish\n", pid);
-			waitpid(pid, 0, WUNTRACED);
-		}
-		else {
+		// else if (pid != 0) {
+
+		// 	// printf("tcpser: waiting for process %d to finish\n", pid);
+		// 	// waitpid(pid, 0, WUNTRACED);
+		// }
+		else if (pid == 0) {
 			curr_pid = getpid();
 			printf("tcpser: process %d executing...\n", curr_pid);
 			process_data(newsd, curr_pid);
+			close(newsd);
+			printf("tcpser: process %d end\n", curr_pid);
+			// exit(0)
+			break;
 		}
 	}
+	// printf("FIN %d", curr_pid);
 	return 0;
 }
 
@@ -110,6 +129,21 @@ void process_data(int sockfd, int curr_pid){
 		}	
 		printf("tcpser: subprocess %d: read message : %s %s %d %d %lf\n",
 			curr_pid, object.str, object.str2, object.ii, object.jj, object.dd);
+		sleep(1);
 	} while(object.ii != -1);
 }
+
+void handler (int sig)
+{
+	int status;
+	// printf ("Sending PID: %d\n",
+	// 		siginfo->si_pid);
+	printf("POUIK POUIK\n");
+	fflush(0);
+	if (waitpid(-1, &status, WNOHANG) == -1){
+		printf("error waitpid");
+	}
+	sleep(3);
+}
+
 
