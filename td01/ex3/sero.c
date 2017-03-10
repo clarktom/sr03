@@ -7,18 +7,22 @@
 #include <sys/wait.h>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <signal.h>
+#include <errno.h>
 
 #include "defobj.h"
 
 void process_data(int sockfd, int curr_pid);
+void handler (int sig);
 
 int main(int argc, char* argv[])
 {
 
 	int sd, newsd, pid, res, curr_pid;
-
-	// AF_INET IPv4 protocol
-	// socket(int domain, int type, int protocol)
+	struct sigaction sa;
+	sa.sa_handler = &handler;
+	sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
+	sigaction(SIGCHLD, &sa, 0);
 	struct sockaddr_in sin;
 	
 	/*
@@ -39,9 +43,6 @@ int main(int argc, char* argv[])
 	uint16_t htons(uint16_t hostshort);
 	*/
 	sin.sin_port = htons(atoi(argv[1]));
-	// htons reordonne les octet en fonction de la machine et du reseau utilisé
-	// Network byte order vs Host byte order htons or ntohs
-	// Little Endian vs Big Endian 
 
 	/*
 	bind - bind a name to a socket
@@ -70,10 +71,16 @@ int main(int argc, char* argv[])
 		accept, accept4 - accept a connection on a socket
 		int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 		*/
+		printf("tcpser: waiting for client %d\n", getpid());
 		newsd = accept(sd, 0, 0);
-		if (newsd==-1){
-			printf("tcpser: err accept");
-			exit(-1);
+		if (newsd == -1){
+			if (EINTR==errno) {
+				continue; /* Restart accept */
+			}
+			else {
+				printf("tcpser: err accept %d\n", getpid());
+				exit(-1);
+			}
 		}	
 
 		pid = fork();
@@ -81,14 +88,12 @@ int main(int argc, char* argv[])
 			printf("tcpser: err fork");
 			exit(-1);
 		}
-		else if (pid != 0) {
-			printf("tcpser: waiting for process %d to finish\n", pid);
-			waitpid(pid, 0, WUNTRACED);
-		}
-		else {
+		else if (pid == 0) {
 			curr_pid = getpid();
 			printf("tcpser: process %d executing...\n", curr_pid);
 			process_data(newsd, curr_pid);
+			printf("tcpser: process %d end\n", curr_pid);
+			break;
 		}
 	}
 	return 0;
@@ -110,6 +115,17 @@ void process_data(int sockfd, int curr_pid){
 		}	
 		printf("tcpser: subprocess %d: read message : %s %s %d %d %lf\n",
 			curr_pid, object.str, object.str2, object.ii, object.jj, object.dd);
+		sleep(1);
 	} while(object.ii != -1);
+	close(sockfd);
 }
+
+void handler (int sig)
+{
+	int status;
+	if (waitpid(-1, &status, WNOHANG) == -1){
+		printf("tcpser: error waitpid");
+	}
+}
+
 

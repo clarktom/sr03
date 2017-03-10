@@ -23,9 +23,6 @@ int main(int argc, char* argv[])
 	sa.sa_handler = &handler;
 	sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
 	sigaction(SIGCHLD, &sa, 0);
-
-	// AF_INET IPv4 protocol
-	// socket(int domain, int type, int protocol)
 	struct sockaddr_in sin;
 	
 	/*
@@ -46,9 +43,6 @@ int main(int argc, char* argv[])
 	uint16_t htons(uint16_t hostshort);
 	*/
 	sin.sin_port = htons(atoi(argv[1]));
-	// htons reordonne les octet en fonction de la machine et du reseau utilisé
-	// Network byte order vs Host byte order htons or ntohs
-	// Little Endian vs Big Endian 
 
 	/*
 	bind - bind a name to a socket
@@ -94,22 +88,14 @@ int main(int argc, char* argv[])
 			printf("tcpser: err fork");
 			exit(-1);
 		}
-		// else if (pid != 0) {
-
-		// 	// printf("tcpser: waiting for process %d to finish\n", pid);
-		// 	// waitpid(pid, 0, WUNTRACED);
-		// }
 		else if (pid == 0) {
 			curr_pid = getpid();
 			printf("tcpser: process %d executing...\n", curr_pid);
 			process_data(newsd, curr_pid);
-			close(newsd);
 			printf("tcpser: process %d end\n", curr_pid);
-			// exit(0)
 			break;
 		}
 	}
-	// printf("FIN %d", curr_pid);
 	return 0;
 }
 
@@ -131,19 +117,15 @@ void process_data(int sockfd, int curr_pid){
 			curr_pid, object.str, object.str2, object.ii, object.jj, object.dd);
 		sleep(1);
 	} while(object.ii != -1);
+	close(sockfd);
 }
 
 void handler (int sig)
 {
 	int status;
-	// printf ("Sending PID: %d\n",
-	// 		siginfo->si_pid);
-	printf("POUIK POUIK\n");
-	fflush(0);
 	if (waitpid(-1, &status, WNOHANG) == -1){
-		printf("error waitpid");
+		printf("tcpser: error waitpid");
 	}
-	sleep(3);
 }
 
 
