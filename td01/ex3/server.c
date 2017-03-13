@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 	}
 
 	bzero(&sin, sizeof(sin));
-	sin.sin_family = AF_INET; // Represente le type d'adresse
+	sin.sin_family = AF_INET;
 
 	/*
 	htonl, htons, ntohl, ntohs - convert values between host and network byte order
@@ -118,12 +118,11 @@ void process_data(int sockfd, int curr_pid){
 			printf("tcpser: subprocess %d: err recv\n", curr_pid);
 			exit(-1);
 		}	
-		printf("%d : demande de donnees:%i\n",curr_pid,ask_for_data);
-
+		printf("tcpser: subprocess %d: data request n%i\n", curr_pid, ask_for_data);
 
 		int nb_data = rand()%10;
 		
-		printf("%dserveur va envoyer %d donnees\n",curr_pid,nb_data);
+		printf("tcpser: subprocess %d: sending %d datas\n", curr_pid, nb_data);
 		sleep(1);
 		send(sockfd,&nb_data,sizeof(nb_data),0);
 		
@@ -131,18 +130,18 @@ void process_data(int sockfd, int curr_pid){
 		for(i=0;i < nb_data; ++i)
 		{
 			int size_data = rand()%20;
-			printf("%d : serveur envoie %d caracteres\n",curr_pid,size_data);
+			printf("tcpser: subprocess %d:     sending %d characters\n", curr_pid, size_data);
 			sleep(1);
-			send(sockfd,&size_data,sizeof(int),0);
+			send(sockfd, &size_data, sizeof(int), 0);
 
 			char* data = malloc(sizeof(char)*size_data);
 			int j =0;
-			for(; j < size_data-1; ++j)
+			for(j=0; j < size_data-1; ++j)
 				data[j] = 'A'+rand()%26;
 			data[j] = '\0';
-			printf("%d:serveur envoie %s\n",curr_pid,data);
+			printf("tcpser: subprocess %d:         data: %s\n", curr_pid, data);
 			sleep(1);
-			send(sockfd,data,sizeof(char)*size_data,0);
+			send(sockfd, data, sizeof(char)*size_data, 0);
 		}
 
 		sleep(1);
