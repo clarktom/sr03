@@ -16,6 +16,8 @@ int main(int argc, char* argv[])
 	int sd, res;
 	struct sockaddr_in sin;
 	struct hostent* hp;
+	
+
 
 	sd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (sd == -1){
@@ -41,12 +43,31 @@ int main(int argc, char* argv[])
 		exit(-1);
 	}
 
-	int i;
-	for(i=0; i < tablen; ++i)
+	int demande_donnees = 1;
+	send(sd, &demande_donnees, sizeof(demande_donnees), 0);
+
+	int nb_data = -1;
+	recv(sd, &nb_data, sizeof(nb_data), 0);
+	printf("tcpcli: reading %d datas\n", nb_data);
+
+	int i=0;
+	for(i=0; i < nb_data; ++i)
 	{
-		send(sd, &(tabobj[i]), sizeof(tabobj[i]), 0);
+		int size_data = -1;
+		recv(sd, &size_data, sizeof(size_data), 0);
+		printf("tcpcli:     reading %d characters\n", size_data);
+		char* data_received = (char*)malloc(sizeof(size_data));
+		int j=0;
+		for(j=0; j<size_data-1; ++j){
+			data_received[j]='A';
+		}
+		data_received[j] = '\0';
+		recv(sd, data_received, size_data*sizeof(char), 0);
+		printf("tcpcli:         data received %s\n", data_received);
+		
 	}
-	exit(0);
-	
+	demande_donnees = -1;
+	send(sd, &demande_donnees, sizeof(demande_donnees), 0);
+
 	return 0;
 }

@@ -18,6 +18,7 @@ void handler (int sig);
 int main(int argc, char* argv[])
 {
 
+	
 	int sd, newsd, pid, res, curr_pid;
 	struct sigaction sa;
 	sa.sa_handler = &handler;
@@ -36,7 +37,7 @@ int main(int argc, char* argv[])
 	}
 
 	bzero(&sin, sizeof(sin));
-	sin.sin_family = AF_INET; // Represente le type d'adresse
+	sin.sin_family = AF_INET;
 
 	/*
 	htonl, htons, ntohl, ntohs - convert values between host and network byte order
@@ -100,23 +101,51 @@ int main(int argc, char* argv[])
 }
 
 void process_data(int sockfd, int curr_pid){
+	srand(curr_pid);
 	obj object;
 	int res;
+	int ask_for_data = -1;
 	do
 	{
 		/*
 		recv, recvfrom, recvmsg - receive a message from a socket
 		ssize_t recv(int sockfd, void *buf, size_t len, int flags);
 		*/
-		res = recv(sockfd, &object, sizeof(object), 0);
+		res = recv(sockfd, &ask_for_data, sizeof(ask_for_data), 0);
+		if(ask_for_data == -1)
+			break;
 		if (res == -1){
 			printf("tcpser: subprocess %d: err recv\n", curr_pid);
 			exit(-1);
 		}	
-		printf("tcpser: subprocess %d: read message : %s %s %d %d %lf\n",
-			curr_pid, object.str, object.str2, object.ii, object.jj, object.dd);
+		printf("tcpser: subprocess %d: data request n%i\n", curr_pid, ask_for_data);
+
+		int nb_data = rand()%10;
+		
+		printf("tcpser: subprocess %d: sending %d datas\n", curr_pid, nb_data);
 		sleep(1);
-	} while(object.ii != -1);
+		send(sockfd,&nb_data,sizeof(nb_data),0);
+		
+		int i=0; 
+		for(i=0;i < nb_data; ++i)
+		{
+			int size_data = rand()%20;
+			printf("tcpser: subprocess %d:     sending %d characters\n", curr_pid, size_data);
+			sleep(1);
+			send(sockfd, &size_data, sizeof(int), 0);
+
+			char* data = malloc(sizeof(char)*size_data);
+			int j =0;
+			for(j=0; j < size_data-1; ++j)
+				data[j] = 'A'+rand()%26;
+			data[j] = '\0';
+			printf("tcpser: subprocess %d:         data: %s\n", curr_pid, data);
+			sleep(1);
+			send(sockfd, data, sizeof(char)*size_data, 0);
+		}
+
+		sleep(1);
+	} while(ask_for_data != -1);
 	close(sockfd);
 }
 
