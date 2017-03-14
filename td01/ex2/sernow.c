@@ -117,7 +117,10 @@ void process_data(int sockfd, int curr_pid){
 			curr_pid, object.str, object.str2, object.ii, object.jj, object.dd);
 		sleep(1);
 	} while(object.ii != -1);
-	close(sockfd);
+	if (close(sockfd) < 0) {
+		perror("tcpser: err close");
+		exit(-1);
+	}
 }
 
 void handler (int sig)
