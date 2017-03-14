@@ -9,19 +9,18 @@
 #include <netdb.h>
 
 #include "iniobj.h"
+#include "defreq.h"
 
 int main(int argc, char* argv[])
 {
 	
-	int sd, res;
+	int sd, res, i, ask_for_data, nb_data;
 	struct sockaddr_in sin;
 	struct hostent* hp;
 	
-
-
 	sd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (sd == -1){
-		printf("tcpcli: err socket");
+		perror("tcpcli: err socket");
 		exit(-1);
 	}
 
@@ -39,35 +38,64 @@ int main(int argc, char* argv[])
 
 	res = connect(sd, (struct sockaddr*)&sin, sizeof(sin));
 	if (res == -1){
-		printf("tcpcli: err connect");
+		perror("tcpcli: err connect");
 		exit(-1);
 	}
 
-	int demande_donnees = 1;
-	send(sd, &demande_donnees, sizeof(demande_donnees), 0);
+	ask_for_data = 1;
+	send(sd, &ask_for_data, sizeof(ask_for_data), 0);
 
-	int nb_data = -1;
-	recv(sd, &nb_data, sizeof(nb_data), 0);
+	nb_data = -1;
+	if (recv(sd, &nb_data, sizeof(nb_data), 0) < 0){
+		perror("tcpcli: err recv");
+		exit(-1);
+	}
 	printf("tcpcli: reading %d datas\n", nb_data);
 
-	int i=0;
 	for(i=0; i < nb_data; ++i)
 	{
-		int size_data = -1;
-		recv(sd, &size_data, sizeof(size_data), 0);
-		printf("tcpcli:     reading %d characters\n", size_data);
-		char* data_received = (char*)malloc(sizeof(size_data));
-		int j=0;
-		for(j=0; j<size_data-1; ++j){
-			data_received[j]='A';
-		}
-		data_received[j] = '\0';
-		recv(sd, data_received, size_data*sizeof(char), 0);
-		printf("tcpcli:         data received %s\n", data_received);
-		
+		receive_data(sd);
 	}
-	demande_donnees = -1;
-	send(sd, &demande_donnees, sizeof(demande_donnees), 0);
+
+	ask_for_data = -1;
+	send(sd, &ask_for_data, sizeof(ask_for_data), 0);
 
 	return 0;
+}
+
+void receive_data(int sd){
+	Req req;
+	if (recv(sd, &req, sizeof(Req), 0) < 0){
+		perror("tcpcli: err recv");
+		exit(-1);
+	}
+	printf("tcpcli: type received %s\n", req.type);
+	if (strcmp(req.type, "integer") == 0) {
+		int data;
+		if (recv(sd, &data, req.size, 0) < 0){
+			perror("tcpcli: err recv");
+			exit(-1);
+		}
+		printf("tcpcli: type %s\n", req.type);
+		printf("tcpcli: data %d\n", data);
+	} else if (strcmp(req.type, "string") == 0) {
+		char data[req.size/sizeof(char)];
+		if (recv(sd, &data, req.size, 0) < 0){
+			perror("tcpcli: err recv");
+			exit(-1);
+		}
+		printf("tcpcli: type %s\n", req.type);
+		printf("tcpcli: data %s\n", data);
+	} else if (strcmp(req.type, "float") == 0) {
+		float data;
+		if (recv(sd, &data, req.size, 0) < 0){
+			perror("tcpcli: err recv");
+			exit(-1);
+		}
+		printf("tcpcli: type %s\n", req.type);
+		printf("tcpcli: data %f\n", data);
+	} else {
+		printf("tcpcli: err send_data type unknown %s\n", req.type);
+		exit(-1);
+	}
 }
