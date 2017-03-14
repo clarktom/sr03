@@ -11,9 +11,11 @@
 #include <errno.h>
 
 #include "defobj.h"
+#include "defreq.h"
 
 void process_data(int sockfd, int curr_pid);
 void handler (int sig);
+void send_data(int sockfd, char* type);
 
 int main(int argc, char* argv[])
 {
@@ -72,7 +74,7 @@ int main(int argc, char* argv[])
 		accept, accept4 - accept a connection on a socket
 		int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 		*/
-		printf("tcpser: waiting for client %d\n", getpid());
+		printf("tcpser: waiting for client\n");
 		newsd = accept(sd, 0, 0);
 		if (newsd == -1){
 			if (EINTR==errno) {
@@ -91,9 +93,9 @@ int main(int argc, char* argv[])
 		}
 		else if (pid == 0) {
 			curr_pid = getpid();
-			printf("tcpser: process %d executing...\n", curr_pid);
+			printf("tcpser: subprocess %d: executing...\n", curr_pid);
 			process_data(newsd, curr_pid);
-			printf("tcpser: process %d end\n", curr_pid);
+			printf("tcpser: subprocess %d: end\n", curr_pid);
 			break;
 		}
 	}
@@ -103,8 +105,13 @@ int main(int argc, char* argv[])
 void process_data(int sockfd, int curr_pid){
 	srand(curr_pid);
 	obj object;
-	int res;
+	int res, rand_type, i;
 	int ask_for_data = -1;
+	char* type;
+	char* types[3];
+	types[0] = "integer";
+	types[1] = "string";
+	types[2] = "float";
 	do
 	{
 		/*
@@ -118,30 +125,21 @@ void process_data(int sockfd, int curr_pid){
 			printf("tcpser: subprocess %d: err recv\n", curr_pid);
 			exit(-1);
 		}	
-		printf("tcpser: subprocess %d: data request n%i\n", curr_pid, ask_for_data);
+		printf("tcpser: subprocess %d: data request %i\n", curr_pid, ask_for_data);
 
-		int nb_data = rand()%10;
+		int nb_data = rand()%8+2;
 		
 		printf("tcpser: subprocess %d: sending %d datas\n", curr_pid, nb_data);
 		sleep(1);
-		send(sockfd,&nb_data,sizeof(nb_data),0);
-		
-		int i=0; 
+		send(sockfd, &nb_data, sizeof(nb_data), 0);
+
 		for(i=0;i < nb_data; ++i)
 		{
-			int size_data = rand()%20;
-			printf("tcpser: subprocess %d:     sending %d characters\n", curr_pid, size_data);
-			sleep(1);
-			send(sockfd, &size_data, sizeof(int), 0);
+			rand_type = rand()%3;
+			type = types[rand_type];
 
-			char* data = malloc(sizeof(char)*size_data);
-			int j =0;
-			for(j=0; j < size_data-1; ++j)
-				data[j] = 'A'+rand()%26;
-			data[j] = '\0';
-			printf("tcpser: subprocess %d:         data: %s\n", curr_pid, data);
+			send_data(sockfd, type);
 			sleep(1);
-			send(sockfd, data, sizeof(char)*size_data, 0);
 		}
 
 		sleep(1);
@@ -149,11 +147,55 @@ void process_data(int sockfd, int curr_pid){
 	close(sockfd);
 }
 
+void send_data(int sockfd, char* type){
+	int curr_pid = getpid();
+    Req req;
+	strcpy(req.type, type);
+	if (strcmp(type, "integer") == 0){
+		int data = rand()%1000;
+		req.size = sizeof(int);
+		printf("tcpser: subprocess %d: sending data type %s size %d\n",
+			curr_pid, req.type, req.size);
+		fflush(0);
+		send(sockfd, &req, sizeof(Req), 0);
+		send(sockfd, &data, req.size, 0);
+	}
+	else if(strcmp(type, "string") == 0){
+		int length = rand()%9+1;
+		char data[length];
+		int j =0;
+		for(j=0; j < length-1; ++j)
+			data[j] = 'A'+rand()%26;
+		data[j] = '\0';
+		req.size = sizeof(char)*length;
+		printf("tcpser: subprocess %d: sending data type %s size %d\n",
+			curr_pid, req.type, req.size);
+		fflush(0);
+		send(sockfd, &req, sizeof(Req), 0);
+		send(sockfd, &data, req.size, 0);
+	}
+	else if (strcmp(type, "float") == 0){
+		float data = (float)rand()/(float)(RAND_MAX/100.0);
+		req.size = sizeof(float);
+		printf("tcpser: subprocess %d: sending data type %s size %d\n",
+			curr_pid, req.type, req.size);
+		fflush(0);
+		send(sockfd, &req, sizeof(Req), 0);
+		send(sockfd, &data, req.size, 0);
+	} else {
+		printf("tcpser: subprocess %d: err send_data type unknown %s\n", curr_pid, type);
+		fflush(0);
+		exit(-1);
+	}
+}
+
 void handler (int sig)
 {
 	int status;
 	if (waitpid(-1, &status, WNOHANG) == -1){
 		printf("tcpser: error waitpid");
+	} else {
+		printf("tcpser: handler signal SIGCHLD received\n");
 	}
 }
 
