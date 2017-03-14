@@ -18,7 +18,7 @@ void handler (int sig);
 int main(int argc, char* argv[])
 {
 
-	int sd, newsd, pid, res, curr_pid, status;
+	int sd, newsd, pid, res, curr_pid;
 	struct sigaction sa;
 	sa.sa_handler = &handler;
 	sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
@@ -88,12 +88,7 @@ int main(int argc, char* argv[])
 			printf("tcpser: err fork");
 			exit(-1);
 		}
-		else if (pid > 0) {
-			if (waitpid(-1, &status, WNOHANG) == -1){
-				printf("tcpser: err waitpid");
-			}
-		}
-		else {
+		else if (pid == 0) {
 			curr_pid = getpid();
 			printf("tcpser: process %d executing...\n", curr_pid);
 			process_data(newsd, curr_pid);
@@ -122,10 +117,7 @@ void process_data(int sockfd, int curr_pid){
 			curr_pid, object.str, object.str2, object.ii, object.jj, object.dd);
 		sleep(1);
 	} while(object.ii != -1);
-	if (close(sockfd) < 0) {
-		perror("tcpser: err close");
-		exit(-1);
-	}
+	close(sockfd);
 }
 
 void handler (int sig)
