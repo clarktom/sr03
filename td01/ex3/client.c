@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 	
 	sd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (sd == -1){
-		printf("tcpcli: err socket");
+		perror("tcpcli: err socket");
 		exit(-1);
 	}
 
@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
 
 	res = connect(sd, (struct sockaddr*)&sin, sizeof(sin));
 	if (res == -1){
-		printf("tcpcli: err connect");
+		perror("tcpcli: err connect");
 		exit(-1);
 	}
 
@@ -46,7 +46,10 @@ int main(int argc, char* argv[])
 	send(sd, &ask_for_data, sizeof(ask_for_data), 0);
 
 	nb_data = -1;
-	recv(sd, &nb_data, sizeof(nb_data), 0);
+	if (recv(sd, &nb_data, sizeof(nb_data), 0) < 0){
+		perror("tcpcli: err recv");
+		exit(-1);
+	}
 	printf("tcpcli: reading %d datas\n", nb_data);
 
 	for(i=0; i < nb_data; ++i)
@@ -63,23 +66,32 @@ int main(int argc, char* argv[])
 void receive_data(int sd){
 	Req req;
 	if (recv(sd, &req, sizeof(Req), 0) < 0){
-		printf("tcpcli: err recv");
+		perror("tcpcli: err recv");
 		exit(-1);
 	}
 	printf("tcpcli: type received %s\n", req.type);
 	if (strcmp(req.type, "integer") == 0) {
 		int data;
-		recv(sd, &data, req.size, 0);
+		if (recv(sd, &data, req.size, 0) < 0){
+			perror("tcpcli: err recv");
+			exit(-1);
+		}
 		printf("tcpcli: type %s\n", req.type);
 		printf("tcpcli: data %d\n", data);
 	} else if (strcmp(req.type, "string") == 0) {
 		char data[req.size/sizeof(char)];
-		recv(sd, &data, req.size, 0);
+		if (recv(sd, &data, req.size, 0) < 0){
+			perror("tcpcli: err recv");
+			exit(-1);
+		}
 		printf("tcpcli: type %s\n", req.type);
 		printf("tcpcli: data %s\n", data);
 	} else if (strcmp(req.type, "float") == 0) {
 		float data;
-		recv(sd, &data, req.size, 0);
+		if (recv(sd, &data, req.size, 0) < 0){
+			perror("tcpcli: err recv");
+			exit(-1);
+		}
 		printf("tcpcli: type %s\n", req.type);
 		printf("tcpcli: data %f\n", data);
 	} else {

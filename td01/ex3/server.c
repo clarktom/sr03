@@ -19,9 +19,7 @@ void send_data(int sockfd, char* type);
 
 int main(int argc, char* argv[])
 {
-
-	
-	int sd, newsd, pid, res, curr_pid;
+	int sd, newsd, pid, curr_pid;
 	struct sigaction sa;
 	sa.sa_handler = &handler;
 	sa.sa_flags = SA_RESTART | SA_NOCLDSTOP;
@@ -34,7 +32,7 @@ int main(int argc, char* argv[])
 	*/
 	sd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (sd == -1){
-		printf("tcpser: err socket");
+		perror("tcpser: err socket");
 		exit(-1);
 	}
 
@@ -52,9 +50,8 @@ int main(int argc, char* argv[])
 	int bind(int sockfd, const struct sockaddr *addr,
 			socklen_t addrlen);
 	*/
-	res = bind(sd, (struct sockaddr *)&sin, sizeof(sin));
-	if (res == -1){
-		printf("tcpser: err bind");
+	if (bind(sd, (struct sockaddr *)&sin, sizeof(sin)) < 0){
+		perror("tcpser: err bind");
 		exit(-1);
 	}
 
@@ -62,9 +59,8 @@ int main(int argc, char* argv[])
 	listen - listen for connections on a socket
 	int listen(int sockfd, int backlog);
 	*/
-	res = listen(sd, 5);
-	if (res == -1){
-		printf("tcpser: err listen");
+	if (listen(sd, 5) < 0){
+		perror("tcpser: err listen");
 		exit(-1);
 	}
 
@@ -81,14 +77,14 @@ int main(int argc, char* argv[])
 				continue; /* Restart accept */
 			}
 			else {
-				printf("tcpser: err accept %d\n", getpid());
+				perror("tcpser: err accept");
 				exit(-1);
 			}
 		}	
 
 		pid = fork();
 		if (pid == -1) {
-			printf("tcpser: err fork");
+			perror("tcpser: err fork");
 			exit(-1);
 		}
 		else if (pid == 0) {
@@ -118,20 +114,23 @@ void process_data(int sockfd, int curr_pid){
 		recv, recvfrom, recvmsg - receive a message from a socket
 		ssize_t recv(int sockfd, void *buf, size_t len, int flags);
 		*/
-		res = recv(sockfd, &ask_for_data, sizeof(ask_for_data), 0);
-		if(ask_for_data == -1)
-			break;
-		if (res == -1){
-			printf("tcpser: subprocess %d: err recv\n", curr_pid);
+		if (recv(sockfd, &ask_for_data, sizeof(ask_for_data), 0) < 0){
+			perror("tcpser: err recv");
 			exit(-1);
 		}	
+		if(ask_for_data == -1)
+			break;
+
 		printf("tcpser: subprocess %d: data request %i\n", curr_pid, ask_for_data);
 
 		int nb_data = rand()%8+2;
 		
 		printf("tcpser: subprocess %d: sending %d datas\n", curr_pid, nb_data);
-		sleep(1);
-		send(sockfd, &nb_data, sizeof(nb_data), 0);
+
+		if (send(sockfd, &nb_data, sizeof(nb_data), 0) < 0){
+			perror("tcpserv: err send");
+			exit(-1);
+		}
 
 		for(i=0;i < nb_data; ++i)
 		{
@@ -157,8 +156,14 @@ void send_data(int sockfd, char* type){
 		printf("tcpser: subprocess %d: sending data type %s size %d\n",
 			curr_pid, req.type, req.size);
 		fflush(0);
-		send(sockfd, &req, sizeof(Req), 0);
-		send(sockfd, &data, req.size, 0);
+		if (send(sockfd, &req, sizeof(Req), 0) < 0){
+			perror("tcpserv: err send");
+			exit(-1);
+		}
+		if (send(sockfd, &data, req.size, 0) < 0){
+			perror("tcpserv: err send");
+			exit(-1);
+		}
 	}
 	else if(strcmp(type, "string") == 0){
 		int length = rand()%9+1;
@@ -171,8 +176,14 @@ void send_data(int sockfd, char* type){
 		printf("tcpser: subprocess %d: sending data type %s size %d\n",
 			curr_pid, req.type, req.size);
 		fflush(0);
-		send(sockfd, &req, sizeof(Req), 0);
-		send(sockfd, &data, req.size, 0);
+		if  (send(sockfd, &req, sizeof(Req), 0) < 0){
+			perror("tcpserv: err send");
+			exit(-1);
+		}
+		if (send(sockfd, &data, req.size, 0) < 0){
+			perror("tcpserv: err send");
+			exit(-1);
+		}
 	}
 	else if (strcmp(type, "float") == 0){
 		float data = (float)rand()/(float)(RAND_MAX/100.0);
@@ -180,11 +191,16 @@ void send_data(int sockfd, char* type){
 		printf("tcpser: subprocess %d: sending data type %s size %d\n",
 			curr_pid, req.type, req.size);
 		fflush(0);
-		send(sockfd, &req, sizeof(Req), 0);
-		send(sockfd, &data, req.size, 0);
+		if (send(sockfd, &req, sizeof(Req), 0) < 0){
+			perror("tcpserv: err send");
+			exit(-1);
+		}
+		if (send(sockfd, &data, req.size, 0) < 0){
+			perror("tcpserv: err send");
+			exit(-1);
+		}
 	} else {
-		printf("tcpser: subprocess %d: err send_data type unknown %s\n", curr_pid, type);
-		fflush(0);
+		perror("tcpser: err send_data type unknown");
 		exit(-1);
 	}
 }
