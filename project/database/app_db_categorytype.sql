@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: appdb
+-- Host: localhost    Database: app_db
 -- ------------------------------------------------------
--- Server version	5.7.17-log
+-- Server version	5.7.9
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,26 +16,26 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `statustype`
+-- Table structure for table `categorytype`
 --
 
-DROP TABLE IF EXISTS `statustype`;
+DROP TABLE IF EXISTS `categorytype`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `statustype` (
-  `statusID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `status` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`statusID`)
+CREATE TABLE `categorytype` (
+  `categoryID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `category` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`categoryID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `statustype`
+-- Dumping data for table `categorytype`
 --
 
-LOCK TABLES `statustype` WRITE;
-/*!40000 ALTER TABLE `statustype` DISABLE KEYS */;
-/*!40000 ALTER TABLE `statustype` ENABLE KEYS */;
+LOCK TABLES `categorytype` WRITE;
+/*!40000 ALTER TABLE `categorytype` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categorytype` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +47,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-11 18:32:16
+-- Dump completed on 2017-04-16 18:20:42

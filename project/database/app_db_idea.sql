@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: appdb
+-- Host: localhost    Database: app_db
 -- ------------------------------------------------------
--- Server version	5.7.17-log
+-- Server version	5.7.9
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,33 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `post`
+-- Table structure for table `idea`
 --
 
-DROP TABLE IF EXISTS `post`;
+DROP TABLE IF EXISTS `idea`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `post` (
-  `postID` int(10) unsigned NOT NULL,
-  `text` longtext,
-  `date` datetime DEFAULT NULL,
+CREATE TABLE `idea` (
+  `ideaID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(45) NOT NULL,
+  `categoryID` int(10) unsigned NOT NULL,
+  `description` mediumtext,
+  `creationDate` datetime NOT NULL,
   `researcherID` int(10) unsigned NOT NULL,
-  `topicID` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`postID`),
-  KEY `topicID_idx` (`topicID`),
-  KEY `researcherIDFK_idx` (`researcherID`),
-  CONSTRAINT `researcherIDFK` FOREIGN KEY (`researcherID`) REFERENCES `researcher` (`researcherID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `topicID` FOREIGN KEY (`topicID`) REFERENCES `topic` (`topicID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`ideaID`),
+  KEY `categoryID_idx` (`categoryID`),
+  KEY `researcherID_idx` (`researcherID`),
+  CONSTRAINT `categoryID` FOREIGN KEY (`categoryID`) REFERENCES `categorytype` (`categoryID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `researcherID` FOREIGN KEY (`ideaID`) REFERENCES `researcher` (`researcherID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `post`
+-- Dumping data for table `idea`
 --
 
-LOCK TABLES `post` WRITE;
-/*!40000 ALTER TABLE `post` DISABLE KEYS */;
-/*!40000 ALTER TABLE `post` ENABLE KEYS */;
+LOCK TABLES `idea` WRITE;
+/*!40000 ALTER TABLE `idea` DISABLE KEYS */;
+/*!40000 ALTER TABLE `idea` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-11 18:32:15
+-- Dump completed on 2017-04-16 18:20:42

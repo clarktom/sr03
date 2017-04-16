@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: appdb
+-- Host: localhost    Database: app_db
 -- ------------------------------------------------------
--- Server version	5.7.17-log
+-- Server version	5.7.9
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,30 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `product`
+-- Table structure for table `step`
 --
 
-DROP TABLE IF EXISTS `product`;
+DROP TABLE IF EXISTS `step`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `product` (
-  `productID` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `price` double DEFAULT NULL,
-  `availability` tinyint(1) DEFAULT NULL,
-  `stepID` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`productID`),
-  KEY `prodStep_idx` (`stepID`),
-  CONSTRAINT `prodStep` FOREIGN KEY (`stepID`) REFERENCES `step` (`stepID`) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE `step` (
+  `stepID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `creationDate` date NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `description` longtext,
+  `progression` double NOT NULL,
+  `progressionText` longtext NOT NULL,
+  `ideaID` int(10) unsigned NOT NULL,
+  `statusID` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`stepID`),
+  KEY `ideaID_idx` (`ideaID`),
+  KEY `statusID_idx` (`statusID`),
+  CONSTRAINT `ideaID` FOREIGN KEY (`ideaID`) REFERENCES `idea` (`ideaID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `statusIDFK` FOREIGN KEY (`statusID`) REFERENCES `statustype` (`statusID`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `product`
+-- Dumping data for table `step`
 --
 
-LOCK TABLES `product` WRITE;
-/*!40000 ALTER TABLE `product` DISABLE KEYS */;
-/*!40000 ALTER TABLE `product` ENABLE KEYS */;
+LOCK TABLES `step` WRITE;
+/*!40000 ALTER TABLE `step` DISABLE KEYS */;
+/*!40000 ALTER TABLE `step` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-11 18:32:15
+-- Dump completed on 2017-04-16 18:20:42
