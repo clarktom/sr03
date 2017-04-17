@@ -9,6 +9,9 @@ import java.util.Collection;
 @Entity
 public class Researcher {
     private int researcherId;
+
+
+
     private String name;
     private String surname;
     private String username;
@@ -16,6 +19,17 @@ public class Researcher {
     private String password;
     private Idea ideaByResearcherId;
     private Collection<Post> postsByResearcherId;
+
+    public Researcher() {
+    }
+
+    public Researcher(String name, String surname, String username, String email, String password) {
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
     @Id
     @Column(name = "researcherID")
