@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="app_db@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="app_db">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="formation"/>
+    <schema id="4" parent="1" name="information_schema"/>
+    <schema id="5" parent="1" name="mysql"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="requests"/>
+    <schema id="8" parent="1" name="sys"/>
+    <schema id="9" parent="1" name="ytocatco_application_database"/>
+    <table id="10" parent="2" name="baseidea"/>
+    <table id="11" parent="2" name="categorytype"/>
+    <table id="12" parent="2" name="idea"/>
+    <table id="13" parent="2" name="post"/>
+    <table id="14" parent="2" name="product"/>
+    <table id="15" parent="2" name="prototype"/>
+    <table id="16" parent="2" name="researcher"/>
+    <table id="17" parent="2" name="simulation"/>
+    <table id="18" parent="2" name="statustype"/>
+    <table id="19" parent="2" name="step"/>
+    <table id="20" parent="2" name="topic"/>
+    <column id="21" parent="10" name="baseIdeaID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="22" parent="10" name="stepID">
+      <Position>2</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="23" parent="10" name="baseStep_idx">
+      <ColNames>stepID</ColNames>
+    </index>
+    <key id="24" parent="10" name="PRIMARY">
+      <ColNames>baseIdeaID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="25" parent="10" name="baseStep">
+      <ColNames>stepID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>step</RefTableName>
+      <RefColNames>stepID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <column id="26" parent="11" name="categoryID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="27" parent="11" name="category">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <key id="28" parent="11" name="PRIMARY">
+      <ColNames>categoryID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="29" parent="12" name="ideaID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="30" parent="12" name="title">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="31" parent="12" name="categoryID">
+      <Position>3</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="32" parent="12" name="description">
+      <Position>4</Position>
+      <DataType>mediumtext|0</DataType>
+    </column>
+    <column id="33" parent="12" name="creationDate">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="12" name="researcherID">
+      <Position>6</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="35" parent="12" name="categoryID_idx">
+      <ColNames>categoryID</ColNames>
+    </index>
+    <index id="36" parent="12" name="researcherID_idx">
+      <ColNames>researcherID</ColNames>
+    </index>
+    <key id="37" parent="12" name="PRIMARY">
+      <ColNames>ideaID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="38" parent="12" name="researcherID">
+      <ColNames>ideaID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>researcher</RefTableName>
+      <RefColNames>researcherID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <foreign-key id="39" parent="12" name="categoryID">
+      <ColNames>categoryID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>categorytype</RefTableName>
+      <RefColNames>categoryID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <column id="40" parent="13" name="postID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="41" parent="13" name="text">
+      <Position>2</Position>
+      <DataType>longtext|0</DataType>
+    </column>
+    <column id="42" parent="13" name="date">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="43" parent="13" name="researcherID">
+      <Position>4</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="13" name="topicID">
+      <Position>5</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="45" parent="13" name="researcherIDFK_idx">
+      <ColNames>researcherID</ColNames>
+    </index>
+    <index id="46" parent="13" name="topicID_idx">
+      <ColNames>topicID</ColNames>
+    </index>
+    <key id="47" parent="13" name="PRIMARY">
+      <ColNames>postID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="48" parent="13" name="researcherIDFK">
+      <ColNames>researcherID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>researcher</RefTableName>
+      <RefColNames>researcherID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <foreign-key id="49" parent="13" name="topicID">
+      <ColNames>topicID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>topic</RefTableName>
+      <RefColNames>topicID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <column id="50" parent="14" name="productID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="51" parent="14" name="price">
+      <Position>2</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="52" parent="14" name="availability">
+      <Position>3</Position>
+      <DataType>tinyint(1)|0</DataType>
+    </column>
+    <column id="53" parent="14" name="stepID">
+      <Position>4</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="54" parent="14" name="prodStep_idx">
+      <ColNames>stepID</ColNames>
+    </index>
+    <key id="55" parent="14" name="PRIMARY">
+      <ColNames>productID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="56" parent="14" name="prodStep">
+      <ColNames>stepID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>step</RefTableName>
+      <RefColNames>stepID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <column id="57" parent="15" name="prototypeID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="58" parent="15" name="market">
+      <Position>2</Position>
+      <DataType>longtext|0</DataType>
+    </column>
+    <column id="59" parent="15" name="resources">
+      <Position>3</Position>
+      <DataType>longtext|0</DataType>
+    </column>
+    <column id="60" parent="15" name="results">
+      <Position>4</Position>
+      <DataType>longtext|0</DataType>
+    </column>
+    <column id="61" parent="15" name="stepID">
+      <Position>5</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="62" parent="15" name="protoStep_idx">
+      <ColNames>stepID</ColNames>
+    </index>
+    <key id="63" parent="15" name="PRIMARY">
+      <ColNames>prototypeID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="64" parent="15" name="protoStep">
+      <ColNames>stepID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>step</RefTableName>
+      <RefColNames>stepID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <column id="65" parent="16" name="researcherID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="66" parent="16" name="name">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="67" parent="16" name="surname">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="68" parent="16" name="username">
+      <Position>4</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="69" parent="16" name="email">
+      <Position>5</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="70" parent="16" name="password">
+      <Position>6</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="71" parent="16" name="PRIMARY">
+      <ColNames>researcherID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="72" parent="17" name="simulationID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="73" parent="17" name="results">
+      <Position>2</Position>
+      <DataType>longtext|0</DataType>
+    </column>
+    <column id="74" parent="17" name="stepID">
+      <Position>3</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="75" parent="17" name="simuStep_idx">
+      <ColNames>stepID</ColNames>
+    </index>
+    <key id="76" parent="17" name="PRIMARY">
+      <ColNames>simulationID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="77" parent="17" name="simuStep">
+      <ColNames>stepID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>step</RefTableName>
+      <RefColNames>stepID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <column id="78" parent="18" name="statusID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="79" parent="18" name="status">
+      <Position>2</Position>
+      <DataType>varchar(45)|0</DataType>
+    </column>
+    <key id="80" parent="18" name="PRIMARY">
+      <ColNames>statusID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="81" parent="19" name="stepID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="82" parent="19" name="creationDate">
+      <Position>2</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="83" parent="19" name="title">
+      <Position>3</Position>
+      <DataType>varchar(45)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="84" parent="19" name="description">
+      <Position>4</Position>
+      <DataType>longtext|0</DataType>
+    </column>
+    <column id="85" parent="19" name="progression">
+      <Position>5</Position>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="86" parent="19" name="progressionText">
+      <Position>6</Position>
+      <DataType>longtext|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="87" parent="19" name="ideaID">
+      <Position>7</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="88" parent="19" name="statusID">
+      <Position>8</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="89" parent="19" name="ideaID_idx">
+      <ColNames>ideaID</ColNames>
+    </index>
+    <index id="90" parent="19" name="statusID_idx">
+      <ColNames>statusID</ColNames>
+    </index>
+    <key id="91" parent="19" name="PRIMARY">
+      <ColNames>stepID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="92" parent="19" name="ideaID">
+      <ColNames>ideaID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>idea</RefTableName>
+      <RefColNames>ideaID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <foreign-key id="93" parent="19" name="statusIDFK">
+      <ColNames>statusID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>statustype</RefTableName>
+      <RefColNames>statusID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+    <column id="94" parent="20" name="topicID">
+      <Position>1</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="95" parent="20" name="locked">
+      <Position>2</Position>
+      <DataType>tinyint(1)|0</DataType>
+    </column>
+    <column id="96" parent="20" name="creationDate">
+      <Position>3</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="97" parent="20" name="stepID">
+      <Position>4</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="98" parent="20" name="stepID_idx">
+      <ColNames>stepID</ColNames>
+    </index>
+    <key id="99" parent="20" name="PRIMARY">
+      <ColNames>topicID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="100" parent="20" name="stepID">
+      <ColNames>stepID</ColNames>
+      <RefSchemaName>app_db</RefSchemaName>
+      <RefTableName>step</RefTableName>
+      <RefColNames>stepID</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>no-action</OnDelete>
+    </foreign-key>
+  </database-model>
+</dataSource>

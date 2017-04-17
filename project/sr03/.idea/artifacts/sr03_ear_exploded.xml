@@ -6,6 +6,10 @@
       <element id="directory" name="web.war">
         <element id="artifact" artifact-name="sr03:war exploded" />
       </element>
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="Hibernate 5.2.9-5.2.9" />
+        <element id="library" level="project" name="mysql:mysql-connector-java:6.0.6" />
+      </element>
     </root>
   </artifact>
 </component>
