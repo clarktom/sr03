@@ -1,16 +1,16 @@
 package beans;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
  * Created by utilisateur on 17/04/2017.
  */
 @Entity
-public class Researcher {
+public class Researcher implements Serializable {
+
     private int researcherId;
-
-
 
     private String name;
     private String surname;
