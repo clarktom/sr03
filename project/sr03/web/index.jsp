@@ -11,6 +11,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  $END$ retest3
+    Test
+    <p><a href="rest/myresource">Jersey resource</a>
   </body>
 </html>
