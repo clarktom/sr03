@@ -19,31 +19,19 @@ import javax.ws.rs.core.UriInfo;
  * Created by tompu on 25/04/2017.
  */
 
-@Path("researcher")
+@Path("/researcher")
 public class ResearcherResource {
-
-    @Context
-    UriInfo uriInfo;
-    @Context
-    Request request;
-
-    String username;
-    public ResearcherResource(UriInfo uriInfo, Request request, String username) {
-        this.uriInfo = uriInfo;
-        this.request = request;
-        this.username = username;
-    }
-
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("{username}")
+    @Path("/{username}")
     public Researcher getResearcher(@PathParam("username") String username) {
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
         String hql = "from Researcher R where R.username = :username";
         Query query = session.createQuery(hql);
         query.setParameter("username", username);
+        System.out.print("Test");
         Researcher researcher = (Researcher)query.list().get(0);
         return researcher;
     }
