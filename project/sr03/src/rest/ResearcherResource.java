@@ -40,6 +40,7 @@ public class ResearcherResource {
         Prends en paramètre un JSON (exp: {"name": "JP","surname": "JL","username": "LP2","email": "ave@ave.ave","password": "admin"})
         Envoyé par POST.
         Renvoie true ou false selon le succès de l'opération d'ajout.
+        //A tester avec un logiciel d'envoie de requête POST
      */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
