@@ -10,7 +10,7 @@
       root
     </property>
     <property name="hibernate.connection.password">
-      admin
+      root
     </property>
       <mapping class="beans.Baseidea"/>
       <mapping class="beans.Categorytype"/>
