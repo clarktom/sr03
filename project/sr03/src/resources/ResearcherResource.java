@@ -1,10 +1,11 @@
-package api;
+package resources;
 
 import beans.Researcher;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import services.ResearcherService;
 
 import javax.persistence.PersistenceException;
 import javax.ws.rs.*;
@@ -18,26 +19,19 @@ import java.util.ArrayList;
 @Path("/researchers")
 public class ResearcherResource {
 
+    ResearcherService researcherService = new ResearcherService();
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Researcher> getResearcherList() {
-        SessionFactory factory = new Configuration().configure().buildSessionFactory();
-        Session session = factory.openSession();
-        Query query = session.createQuery( "from Researcher R");
-        ArrayList<Researcher> researcherList = (ArrayList<Researcher>)query.list();
-        return researcherList;
+    public ArrayList<Researcher> getResearchers() {
+        return researcherService.getAllResearchers();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}")
     public Researcher getResearcher(@PathParam("username") String username) {
-        SessionFactory factory = new Configuration().configure().buildSessionFactory();
-        Session session = factory.openSession();
-        Query query = session.createQuery( "from Researcher R where R.username = :username");
-        query.setParameter("username", username);
-        Researcher researcher = (Researcher)query.list().get(0);
-        return researcher;
+        return researcherService.getResearcher(username);
     }
 
     /*
