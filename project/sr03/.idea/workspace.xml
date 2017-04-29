@@ -35,11 +35,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ResearcherResource.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ResearcherResource.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/api/ResearcherResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="26" column="8" lean-forward="true" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="83" />
+            <state relative-caret-position="136">
+              <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -60,8 +60,8 @@
       <file leaf-file-name="connexion.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/connexion.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+            <state relative-caret-position="527">
+              <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -70,7 +70,7 @@
       <file leaf-file-name="Researcher.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/beans/Researcher.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="730">
+            <state relative-caret-position="577">
               <caret line="121" column="46" lean-forward="false" selection-start-line="121" selection-start-column="46" selection-end-line="121" selection-end-column="46" />
               <folding />
             </state>
@@ -97,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConnexionForm.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ConnexionForm.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/forms/ConnexionForm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="60" column="55" lean-forward="true" selection-start-line="60" selection-start-column="55" selection-end-line="60" selection-end-column="55" />
+            <state relative-caret-position="337">
+              <caret line="66" column="20" lean-forward="true" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#604#620#0" expanded="true" />
@@ -131,7 +131,7 @@
       <file leaf-file-name="ConnexionServlet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/controllers/ConnexionServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
+            <state relative-caret-position="473">
               <caret line="35" column="56" lean-forward="false" selection-start-line="35" selection-start-column="56" selection-end-line="35" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -193,11 +193,11 @@
         <option value="$PROJECT_DIR$/src/rest/ResearcherResource.java" />
         <option value="$PROJECT_DIR$/src/api/ResearcherResource.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/web/WEB-INF/connexion.jsp" />
         <option value="$PROJECT_DIR$/web/WEB-INF/form.css" />
         <option value="$PROJECT_DIR$/src/controllers/ConnexionServlet.java" />
         <option value="$PROJECT_DIR$/src/forms/ConnexionForm.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/connexion.jsp" />
       </list>
     </option>
   </component>
@@ -954,12 +954,12 @@
       <workItem from="1493107149947" duration="3975000" />
       <workItem from="1493130633829" duration="16000" />
       <workItem from="1493133234575" duration="8228000" />
-      <workItem from="1493458236691" duration="7954000" />
+      <workItem from="1493458236691" duration="9401000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23611000" />
+    <option name="totallyTimeSpent" value="25058000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1535,16 +1535,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/ServletTestHibernate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/api/MyResource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -1561,34 +1551,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/connexion.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/controllers/ConnexionServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="35" column="56" lean-forward="false" selection-start-line="35" selection-start-column="56" selection-end-line="35" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/ResearcherResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="26" column="8" lean-forward="true" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="83" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -1597,18 +1559,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/beans/Researcher.java">
+    <entry file="file://$PROJECT_DIR$/src/controllers/ConnexionServlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="730">
-          <caret line="121" column="46" lean-forward="false" selection-start-line="121" selection-start-column="46" selection-end-line="121" selection-end-column="46" />
-          <folding />
+        <state relative-caret-position="473">
+          <caret line="35" column="56" lean-forward="false" selection-start-line="35" selection-start-column="56" selection-end-line="35" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controllers/ServletTestHibernate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/forms/ConnexionForm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="60" column="55" lean-forward="true" selection-start-line="60" selection-start-column="55" selection-end-line="60" selection-end-column="55" />
+        <state relative-caret-position="337">
+          <caret line="66" column="20" lean-forward="true" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#604#620#0" expanded="true" />
@@ -1618,6 +1592,32 @@
             <element signature="e#765#766#0" expanded="true" />
             <element signature="e#3621#3622#0" expanded="true" />
             <element signature="e#3666#3667#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/connexion.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/Researcher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="577">
+          <caret line="121" column="46" lean-forward="false" selection-start-line="121" selection-start-column="46" selection-end-line="121" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/ResearcherResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="28" column="5" lean-forward="true" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
