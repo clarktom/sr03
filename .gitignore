@@ -32,3 +32,5 @@
 *.dSYM/
 
 workspace.xml
+/out
+/target
