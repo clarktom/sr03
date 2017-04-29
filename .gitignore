@@ -32,3 +32,6 @@
 *.dSYM/
 
 workspace.xml
+project/sr03/out
+project/sr03/target
+project/sr03/.idea/workspace.xml
