@@ -51,9 +51,9 @@ public class ResearcherService {
             }
             throw e;
         }
-
-        Query query = session.createQuery( "from Researcher R where R.username = :username");
-        query.setParameter("username", researcher.getUsername());
+        Integer id = (Integer) session.createQuery( "SELECT max( r.researcherId ) FROM Researcher r").uniqueResult();
+        Query query = session.createQuery( "from Researcher R where R.researcherId = :id");
+        query.setParameter("id", id);
         researcher = (Researcher)query.uniqueResult();
         session.close();
         factory.close();

@@ -4,7 +4,9 @@ import jdk.internal.instrumentation.TypeMapping;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by utilisateur on 17/04/2017.
@@ -18,6 +20,8 @@ public class Idea {
     private String description;
     private Timestamp creationDate;
     private int researcherId;
+    @Transient
+    private List<Link> links = new ArrayList<Link>();
 //    private Researcher researcherByIdeaId;
 //    private Categorytype categorytypeByCategoryId;
 //    private Collection<Step> stepsByIdeaId;
@@ -82,6 +86,23 @@ public class Idea {
     public void setResearcherId(int researcherId) {
         this.researcherId = researcherId;
     }
+
+    @Transient
+    public List<Link> getLinks() {
+        return links;
+    }
+    @Transient
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+    @Transient
+    public void addLink(String url, String rel) {
+        Link link = new Link();
+        link.setLink(url);
+        link.setRel(rel);
+        links.add(link);
+    }
+
 //
 //    @Override
 //    public boolean equals(Object o) {

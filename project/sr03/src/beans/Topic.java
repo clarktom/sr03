@@ -14,8 +14,8 @@ public class Topic {
     private Byte locked;
     private Timestamp creationDate;
     private int stepId;
-    private Collection<Post> postsByTopicId;
-    private Step stepByStepId;
+//    private Collection<Post> postsByTopicId;
+//    private Step stepByStepId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

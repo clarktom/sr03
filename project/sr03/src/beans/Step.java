@@ -2,12 +2,15 @@ package beans;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by utilisateur on 17/04/2017.
  */
 @Entity
+@Table(name="step")
 public class Step {
     private int stepId;
     private Date creationDate;
@@ -17,6 +20,8 @@ public class Step {
 //    private String progressionText;
     private int ideaId;
     private int statusId;
+//    @Transient
+//    private List<Link> links = new ArrayList<Link>();
 //    private Collection<Baseidea> baseideasByStepId;
 //    private Collection<Product> productsByStepId;
 //    private Collection<Prototype> prototypesByStepId;
@@ -76,16 +81,6 @@ public class Step {
         this.progression = progression;
     }
 
-//    @Basic
-//    @Column(name = "progressionText")
-//    public String getProgressionText() {
-//        return progressionText;
-//    }
-//
-//    public void setProgressionText(String progressionText) {
-//        this.progressionText = progressionText;
-//    }
-
     @Basic
     @Column(name = "ideaID")
     public int getIdeaId() {
@@ -105,6 +100,22 @@ public class Step {
     public void setStatusId(int statusId) {
         this.statusId = statusId;
     }
+
+//    @Transient
+//    public List<Link> getLinks() {
+//        return links;
+//    }
+//    @Transient
+//    public void setLinks(List<Link> links) {
+//        this.links = links;
+//    }
+//    @Transient
+//    public void addLink(String url, String rel) {
+//        Link link = new Link();
+//        link.setLink(url);
+//        link.setRel(rel);
+//        links.add(link);
+//    }
 //
 //    @Override
 //    public boolean equals(Object o) {
