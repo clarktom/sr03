@@ -15,6 +15,8 @@
         <h1> Bienvenue sur la page d'accueil </h1>
     </header>
 
-    <jsp:include page="WEB-INF/central_content.jsp" />
+    <article>
+        <jsp:include page="WEB-INF/central_content.jsp" />
+    </article>
   </body>
 </html>

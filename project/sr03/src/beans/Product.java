@@ -6,17 +6,17 @@ import javax.persistence.*;
  * Created by utilisateur on 17/04/2017.
  */
 
-// TODO: Ajouter une interface pour Add produit, ...
 @Entity // Classe persistente
-// TODO: il faudrait aussi rajouter @Table(name="Product") afin de specifier le nom de la table
+@Table(name="product")
 public class Product { // implements Serializable
     private int productId;
     private Double price;
     private Byte availability;
     private int stepId;
-    private Step stepByStepId;
+//    private Step stepByStepId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "productID")
     public int getProductId() {
         return productId;
@@ -55,39 +55,39 @@ public class Product { // implements Serializable
     public void setStepId(int stepId) {
         this.stepId = stepId;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Product product = (Product) o;
-
-        if (productId != product.productId) return false;
-        if (stepId != product.stepId) return false;
-        if (price != null ? !price.equals(product.price) : product.price != null) return false;
-        if (availability != null ? !availability.equals(product.availability) : product.availability != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = productId;
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (availability != null ? availability.hashCode() : 0);
-        result = 31 * result + stepId;
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "stepID", referencedColumnName = "stepID", nullable = false,insertable = false, updatable =false)
-    public Step getStepByStepId() {
-        return stepByStepId;
-    }
-
-    public void setStepByStepId(Step stepByStepId) {
-        this.stepByStepId = stepByStepId;
-    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        Product product = (Product) o;
+//
+//        if (productId != product.productId) return false;
+//        if (stepId != product.stepId) return false;
+//        if (price != null ? !price.equals(product.price) : product.price != null) return false;
+//        if (availability != null ? !availability.equals(product.availability) : product.availability != null)
+//            return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = productId;
+//        result = 31 * result + (price != null ? price.hashCode() : 0);
+//        result = 31 * result + (availability != null ? availability.hashCode() : 0);
+//        result = 31 * result + stepId;
+//        return result;
+//    }
+//
+//    @ManyToOne
+//    @JoinColumn(name = "stepID", referencedColumnName = "stepID", nullable = false,insertable = false, updatable =false)
+//    public Step getStepByStepId() {
+//        return stepByStepId;
+//    }
+//
+//    public void setStepByStepId(Step stepByStepId) {
+//        this.stepByStepId = stepByStepId;
+//    }
 }
