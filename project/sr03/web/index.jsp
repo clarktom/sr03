@@ -8,10 +8,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title> Accueil </title>
   </head>
   <body>
-    Test
-    <p><a href="rest/myresource">Jersey resource</a>
+    <header>
+        <h1> Bienvenue sur la page d'accueil </h1>
+    </header>
+
+    <article>
+        <jsp:include page="WEB-INF/central_content.jsp" />
+    </article>
   </body>
 </html>
