@@ -58,19 +58,16 @@ public final class ConnexionForm {
         if ( erreurs.isEmpty() ) {
             SessionFactory factory = new Configuration().configure().buildSessionFactory();
             Session session = factory.openSession();
-            Query query = session.createQuery("from Researcher R where R.email = :email");
+            Query query = session.createQuery("from Researcher R where R.email = :email AND R.password = :pass");
             query.setParameter("email", email);
+            query.setParameter("pass", password);
             ArrayList<Researcher> researcherList = (ArrayList<Researcher>) query.list();
 
             if (researcherList.size() == 0) {
-                setErreur(CHAMP_EMAIL, "Cette adresse email ne correspond à aucun utilisateur.");
-            } else {
-                researcher = researcherList.get(0);
-                String dbPassword = researcher.getPassword();
-                if (dbPassword != null && !password.equals(dbPassword)) {
-                    setErreur(CHAMP_PASS, "Mot de passe incorrect.");
-                }
+                setErreur("all", "L'adresse email ou le mot de passe ne correspond pas.");
             }
+            else
+                researcher = researcherList.get(0);
         }
 
         /* Initialisation du résultat global de la validation. */
@@ -87,6 +84,10 @@ public final class ConnexionForm {
      * Valide l'adresse email saisie.
      */
     private void validationEmail( String email ) throws Exception {
+
+        if ( email.length() < 5 ) {
+            throw new Exception( "Longueur d'email invalide." );
+        }
         if ( email != null && !email.matches( "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)" ) ) {
             throw new Exception( "Merci de saisir une adresse mail valide." );
         }
