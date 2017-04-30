@@ -8,6 +8,7 @@ import java.util.Collection;
  * Created by utilisateur on 17/04/2017.
  */
 @Entity
+@Table(name="researcher")
 public class Researcher implements Serializable {
 
     private int researcherId;
@@ -17,8 +18,8 @@ public class Researcher implements Serializable {
     private String username;
     private String email;
     private String password;
-    private Idea ideaByResearcherId;
-    private Collection<Post> postsByResearcherId;
+//    private Idea ideaByResearcherId;
+//    private Collection<Post> postsByResearcherId;
 
     public Researcher() {
     }
@@ -32,6 +33,7 @@ public class Researcher implements Serializable {
     }
 
     @Id
+    @GeneratedValue
     @Column(name = "researcherID")
     public int getResearcherId() {
         return researcherId;
@@ -91,49 +93,50 @@ public class Researcher implements Serializable {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Researcher that = (Researcher) o;
-
-        if (researcherId != that.researcherId) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
-        if (username != null ? !username.equals(that.username) : that.username != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (password != null ? !password.equals(that.password) : that.password != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = researcherId;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        return result;
-    }
-
-    @OneToOne(mappedBy = "researcherByIdeaId")
-    public Idea getIdeaByResearcherId() {
-        return ideaByResearcherId;
-    }
-
-    public void setIdeaByResearcherId(Idea ideaByResearcherId) {
-        this.ideaByResearcherId = ideaByResearcherId;
-    }
-
-    @OneToMany(mappedBy = "researcherByResearcherId")
-    public Collection<Post> getPostsByResearcherId() {
-        return postsByResearcherId;
-    }
-
-    public void setPostsByResearcherId(Collection<Post> postsByResearcherId) {
-        this.postsByResearcherId = postsByResearcherId;
-    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        Researcher that = (Researcher) o;
+//
+//        if (researcherId != that.researcherId) return false;
+//        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+//        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
+//        if (username != null ? !username.equals(that.username) : that.username != null) return false;
+//        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+//        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = researcherId;
+//        result = 31 * result + (name != null ? name.hashCode() : 0);
+//        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+//        result = 31 * result + (username != null ? username.hashCode() : 0);
+//        result = 31 * result + (email != null ? email.hashCode() : 0);
+//        result = 31 * result + (password != null ? password.hashCode() : 0);
+//        return result;
+//    }
+//
+//    @OneToOne(mappedBy = "researcherByIdeaId")
+//    public Idea getIdeaByResearcherId() {
+//        return ideaByResearcherId;
+//    }
+//
+//    public void setIdeaByResearcherId(Idea ideaByResearcherId) {
+//        this.ideaByResearcherId = ideaByResearcherId;
+//    }
+//
+//    @OneToMany(mappedBy = "researcherByResearcherId")
+//    public Collection<Post> getPostsByResearcherId() {
+//        return postsByResearcherId;
+//    }
+//
+//    public void setPostsByResearcherId(Collection<Post> postsByResearcherId) {
+//        this.postsByResearcherId = postsByResearcherId;
+//    }
 }

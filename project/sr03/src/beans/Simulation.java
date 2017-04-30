@@ -6,13 +6,15 @@ import javax.persistence.*;
  * Created by utilisateur on 17/04/2017.
  */
 @Entity
+@Table(name="simulation")
 public class Simulation {
     private int simulationId;
     private String results;
     private int stepId;
-    private Step stepByStepId;
+//    private Step stepByStepId;
 
     @Id
+    @GeneratedValue
     @Column(name = "simulationID")
     public int getSimulationId() {
         return simulationId;
@@ -41,36 +43,36 @@ public class Simulation {
     public void setStepId(int stepId) {
         this.stepId = stepId;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Simulation that = (Simulation) o;
-
-        if (simulationId != that.simulationId) return false;
-        if (stepId != that.stepId) return false;
-        if (results != null ? !results.equals(that.results) : that.results != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = simulationId;
-        result = 31 * result + (results != null ? results.hashCode() : 0);
-        result = 31 * result + stepId;
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "stepID", referencedColumnName = "stepID", nullable = false,insertable = false, updatable =false)
-    public Step getStepByStepId() {
-        return stepByStepId;
-    }
-
-    public void setStepByStepId(Step stepByStepId) {
-        this.stepByStepId = stepByStepId;
-    }
+//
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        Simulation that = (Simulation) o;
+//
+//        if (simulationId != that.simulationId) return false;
+//        if (stepId != that.stepId) return false;
+//        if (results != null ? !results.equals(that.results) : that.results != null) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = simulationId;
+//        result = 31 * result + (results != null ? results.hashCode() : 0);
+//        result = 31 * result + stepId;
+//        return result;
+//    }
+//
+//    @ManyToOne
+//    @JoinColumn(name = "stepID", referencedColumnName = "stepID", nullable = false,insertable = false, updatable =false)
+//    public Step getStepByStepId() {
+//        return stepByStepId;
+//    }
+//
+//    public void setStepByStepId(Step stepByStepId) {
+//        this.stepByStepId = stepByStepId;
+//    }
 }

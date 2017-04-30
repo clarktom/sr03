@@ -1,9 +1,11 @@
 package beans;
 
+import java.io.Serializable;
+
 /**
  * Created by tompu on 29/04/2017.
  */
-public class ErrorMessage {
+public class ErrorMessage implements Serializable {
 
     private String errorMessage;
     private int errorCode;

@@ -5,11 +5,13 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+import org.hibernate.Transaction;
 import services.ResearcherService;
 
 import javax.persistence.PersistenceException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.ext.ExceptionMapper;
 import java.util.ArrayList;
 
 /**
@@ -43,22 +45,9 @@ public class ResearcherResource {
     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean addResearcher(Researcher rs)
-    {
-        SessionFactory factory = new Configuration().configure().buildSessionFactory();
-        Session session = factory.openSession();
-        session.beginTransaction();
-        session.save(rs);
-        try
-        {
-            session.getTransaction().commit();
-        }
-        catch(PersistenceException E)
-        {
-            return false;
-        }
-        return true;
+    @Produces(MediaType.APPLICATION_JSON)
+    public Researcher addResearcher(Researcher researcher) {
+        return researcherService.addResearcher(researcher);
     }
 
 }

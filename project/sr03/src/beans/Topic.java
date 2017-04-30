@@ -8,6 +8,7 @@ import java.util.Collection;
  * Created by utilisateur on 17/04/2017.
  */
 @Entity
+@Table(name="topic")
 public class Topic {
     private int topicId;
     private Byte locked;
@@ -17,6 +18,7 @@ public class Topic {
     private Step stepByStepId;
 
     @Id
+    @GeneratedValue
     @Column(name = "topicID")
     public int getTopicId() {
         return topicId;
@@ -56,46 +58,46 @@ public class Topic {
         this.stepId = stepId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Topic topic = (Topic) o;
-
-        if (topicId != topic.topicId) return false;
-        if (stepId != topic.stepId) return false;
-        if (locked != null ? !locked.equals(topic.locked) : topic.locked != null) return false;
-        if (creationDate != null ? !creationDate.equals(topic.creationDate) : topic.creationDate != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = topicId;
-        result = 31 * result + (locked != null ? locked.hashCode() : 0);
-        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
-        result = 31 * result + stepId;
-        return result;
-    }
-
-    @OneToMany(mappedBy = "topicByTopicId")
-    public Collection<Post> getPostsByTopicId() {
-        return postsByTopicId;
-    }
-
-    public void setPostsByTopicId(Collection<Post> postsByTopicId) {
-        this.postsByTopicId = postsByTopicId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "stepID", referencedColumnName = "stepID", nullable = false,insertable = false, updatable =false)
-    public Step getStepByStepId() {
-        return stepByStepId;
-    }
-
-    public void setStepByStepId(Step stepByStepId) {
-        this.stepByStepId = stepByStepId;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        Topic topic = (Topic) o;
+//
+//        if (topicId != topic.topicId) return false;
+//        if (stepId != topic.stepId) return false;
+//        if (locked != null ? !locked.equals(topic.locked) : topic.locked != null) return false;
+//        if (creationDate != null ? !creationDate.equals(topic.creationDate) : topic.creationDate != null) return false;
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        int result = topicId;
+//        result = 31 * result + (locked != null ? locked.hashCode() : 0);
+//        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
+//        result = 31 * result + stepId;
+//        return result;
+//    }
+//
+//    @OneToMany(mappedBy = "topicByTopicId")
+//    public Collection<Post> getPostsByTopicId() {
+//        return postsByTopicId;
+//    }
+//
+//    public void setPostsByTopicId(Collection<Post> postsByTopicId) {
+//        this.postsByTopicId = postsByTopicId;
+//    }
+//
+//    @ManyToOne
+//    @JoinColumn(name = "stepID", referencedColumnName = "stepID", nullable = false,insertable = false, updatable =false)
+//    public Step getStepByStepId() {
+//        return stepByStepId;
+//    }
+//
+//    public void setStepByStepId(Step stepByStepId) {
+//        this.stepByStepId = stepByStepId;
+//    }
 }
