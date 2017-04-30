@@ -4,6 +4,7 @@ package forms;
  * Created by tompu on 29/04/2017.
  */
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +17,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import java.security.MessageDigest;
+
+
 public final class ConnexionForm {
-    private static final String CHAMP_EMAIL  = "email";
+    private static final String CHAMP_USERNAME  = "username";
     private static final String CHAMP_PASS   = "motdepasse";
 
     private String              resultat;
@@ -31,20 +35,30 @@ public final class ConnexionForm {
         return erreurs;
     }
 
+    static String sha256(String input) throws NoSuchAlgorithmException {
+        MessageDigest mDigest = MessageDigest.getInstance("SHA-256");
+        byte[] result = mDigest.digest(input.getBytes());
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < result.length; i++) {
+            sb.append(Integer.toString((result[i] & 0xff) + 0x100, 16).substring(1));
+        }
+
+        return sb.toString();
+    }
+
     public Researcher connectResearcher( HttpServletRequest request ) {
         /* Récupération des champs du formulaire */
-        String email = getValeurChamp( request, CHAMP_EMAIL );
+        String username = getValeurChamp( request, CHAMP_USERNAME );
         String password = getValeurChamp( request, CHAMP_PASS );
 
         Researcher researcher = new Researcher();
 
-        /* Validation du champ email. */
+        /* Validation du champ username. */
         try {
-            validationEmail( email );
+            validationUsername( username );
         } catch ( Exception e ) {
-            setErreur( CHAMP_EMAIL, e.getMessage() );
+            setErreur( CHAMP_USERNAME, e.getMessage() );
         }
-//        researcher.setEmail( email );
 
         /* Validation du champ mot de passe. */
         try {
@@ -52,19 +66,25 @@ public final class ConnexionForm {
         } catch ( Exception e ) {
             setErreur( CHAMP_PASS, e.getMessage() );
         }
-//        researcher.setPassword( password );
+
+        /* Hashage du mot de passe */
+        try
+        {
+            password = sha256(password+username);
+        }catch (NoSuchAlgorithmException E){
+            setErreur( CHAMP_PASS, "Erreur d'opération sur le mot de passe." );}
 
         //RECUPERER DES DONNEES
         if ( erreurs.isEmpty() ) {
             SessionFactory factory = new Configuration().configure().buildSessionFactory();
             Session session = factory.openSession();
-            Query query = session.createQuery("from Researcher R where R.email = :email AND R.password = :pass");
-            query.setParameter("email", email);
+            Query query = session.createQuery("from Researcher R where R.username = :username AND R.password = :pass");
+            query.setParameter("username", username);
             query.setParameter("pass", password);
             ArrayList<Researcher> researcherList = (ArrayList<Researcher>) query.list();
 
             if (researcherList.size() == 0) {
-                setErreur("all", "L'adresse email ou le mot de passe ne correspond pas.");
+                setErreur("all", "Le nom d'utilisateur ou le mot de passe ne correspond pas.");
             }
             else
                 researcher = researcherList.get(0);
@@ -74,7 +94,7 @@ public final class ConnexionForm {
         if ( erreurs.isEmpty() ) {
             resultat = "Succès de la connexion.";
         } else {
-            resultat = "Échec de la connexion.";
+            resultat = "Échec de la connexion." + erreurs;
         }
 
         return researcher;
@@ -83,6 +103,16 @@ public final class ConnexionForm {
     /**
      * Valide l'adresse email saisie.
      */
+        private void validationUsername( String username ) throws Exception {
+
+        if ( username.length() < 4 ) {
+            throw new Exception( "Longueur du nom d'utilisateur invalide." );
+        }
+        if ( username == null  ) {
+            throw new Exception( "Merci de saisir un nom d'utilisateur valide." );
+        }
+    }
+
     private void validationEmail( String email ) throws Exception {
 
         if ( email.length() < 5 ) {
