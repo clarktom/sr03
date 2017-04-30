@@ -18,7 +18,7 @@ public class Post {
 //    private Topic topicByTopicId;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "postID")
     public int getPostId() {
         return postId;

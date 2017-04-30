@@ -36,7 +36,7 @@ public class ResearcherService {
         return researcher;
     }
 
-    public Researcher addResearcher(Researcher researcher) {
+    public Researcher addResearcher(Researcher researcher) throws Exception {
         SessionFactory factory = new Configuration().configure().buildSessionFactory();
         Session session = factory.openSession();
         Transaction tx = null;
@@ -45,16 +45,17 @@ public class ResearcherService {
             session.save(researcher);
             session.flush();
             tx.commit();
-            Query query = session.createQuery( "from Researcher R where R.username = :username");
-            query.setParameter("username", researcher.getUsername());
-            researcher = (Researcher)query.uniqueResult();
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
             }
-        } finally {
-            session.close();
+            throw e;
         }
+
+        Query query = session.createQuery( "from Researcher R where R.username = :username");
+        query.setParameter("username", researcher.getUsername());
+        researcher = (Researcher)query.uniqueResult();
+        session.close();
         factory.close();
 
         return researcher;

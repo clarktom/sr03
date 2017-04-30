@@ -16,7 +16,7 @@ public class Product { // implements Serializable
 //    private Step stepByStepId;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "productID")
     public int getProductId() {
         return productId;

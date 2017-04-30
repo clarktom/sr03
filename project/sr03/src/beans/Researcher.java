@@ -33,7 +33,7 @@ public class Researcher implements Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "researcherID")
     public int getResearcherId() {
         return researcherId;

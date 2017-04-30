@@ -26,6 +26,7 @@ public class Step {
 //    private Collection<Topic> topicsByStepId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stepID")
     public int getStepId() {
         return stepId;

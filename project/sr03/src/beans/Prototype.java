@@ -16,7 +16,7 @@ public class Prototype {
 //    private Step stepByStepId;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "prototypeID")
     public int getPrototypeId() {
         return prototypeId;

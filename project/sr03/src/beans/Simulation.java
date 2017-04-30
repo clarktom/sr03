@@ -14,7 +14,7 @@ public class Simulation {
 //    private Step stepByStepId;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "simulationID")
     public int getSimulationId() {
         return simulationId;

@@ -13,7 +13,7 @@ public class Baseidea {
 //    private Step stepByStepId;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "baseIdeaID")
     public int getBaseIdeaId() {
         return baseIdeaId;

@@ -23,7 +23,7 @@ public class Idea {
 //    private Collection<Step> stepsByIdeaId;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ideaID")
     public int getIdeaId() {
         return ideaId;

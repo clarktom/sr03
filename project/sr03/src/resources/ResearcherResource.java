@@ -46,7 +46,7 @@ public class ResearcherResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Researcher addResearcher(Researcher researcher) {
+    public Researcher addResearcher(Researcher researcher) throws Exception {
         return researcherService.addResearcher(researcher);
     }
 

@@ -18,7 +18,7 @@ public class Topic {
     private Step stepByStepId;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "topicID")
     public int getTopicId() {
         return topicId;

@@ -14,7 +14,7 @@ public class Categorytype {
 //    private Collection<Idea> ideasByCategoryId;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "categoryID")
     public int getCategoryId() {
         return categoryId;

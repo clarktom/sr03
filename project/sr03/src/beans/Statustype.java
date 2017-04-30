@@ -14,7 +14,7 @@ public class Statustype {
 //    private Collection<Step> stepsByStatusId;
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "statusID")
     public int getStatusId() {
         return statusId;
