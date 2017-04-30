@@ -14,21 +14,34 @@ import java.util.List;
 @Entity
 @Table(name="idea")
 public class Idea {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ideaID")
     private int ideaId;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "categoryID")
     private int categoryId;
+
+    @Column(name = "description")
     private String description;
+
+    @Column(name = "creationDate")
     private Timestamp creationDate;
+
+    @Column(name = "researcherID")
     private int researcherId;
+
     @Transient
     private List<Link> links = new ArrayList<Link>();
 //    private Researcher researcherByIdeaId;
 //    private Categorytype categorytypeByCategoryId;
 //    private Collection<Step> stepsByIdeaId;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ideaID")
+
     public int getIdeaId() {
         return ideaId;
     }
@@ -37,8 +50,7 @@ public class Idea {
         this.ideaId = ideaId;
     }
 
-    @Basic
-    @Column(name = "title")
+
     public String getTitle() {
         return title;
     }
@@ -47,8 +59,7 @@ public class Idea {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "categoryID")
+
     public int getCategoryId() {
         return categoryId;
     }
@@ -57,8 +68,7 @@ public class Idea {
         this.categoryId = categoryId;
     }
 
-    @Basic
-    @Column(name = "description")
+
     public String getDescription() {
         return description;
     }
@@ -67,8 +77,7 @@ public class Idea {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "creationDate")
+
     public Timestamp getCreationDate() {
         return creationDate;
     }
@@ -77,8 +86,7 @@ public class Idea {
         this.creationDate = creationDate;
     }
 
-    @Basic
-    @Column(name = "researcherID")
+
     public int getResearcherId() {
         return researcherId;
     }

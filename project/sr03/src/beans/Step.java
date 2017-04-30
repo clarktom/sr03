@@ -1,9 +1,9 @@
 package beans;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -11,28 +11,33 @@ import java.util.List;
  */
 @Entity
 @Table(name="step")
-public class Step {
-    private int stepId;
-    private Date creationDate;
-    private String title;
-    private String description;
-    private double progression;
-//    private String progressionText;
-    private int ideaId;
-    private int statusId;
-//    @Transient
-//    private List<Link> links = new ArrayList<Link>();
-//    private Collection<Baseidea> baseideasByStepId;
-//    private Collection<Product> productsByStepId;
-//    private Collection<Prototype> prototypesByStepId;
-//    private Collection<Simulation> simulationsByStepId;
-//    private Idea ideaByIdeaId;
-//    private Statustype statustypeByStatusId;
-//    private Collection<Topic> topicsByStepId;
+public class Step implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stepID")
+    private int stepId;
+    @Basic
+    @Column(name = "creationDate")
+    private Date creationDate;
+    @Basic
+    @Column(name = "title")
+    private String title;
+    @Basic
+    @Column(name = "description")
+    private String description;
+//    @Basic
+//    @Column(name = "progression")
+//    private int progression;
+    @Basic
+    @Column(name = "ideaID")
+    private int ideaId;
+    @Basic
+    @Column(name = "statusID")
+    private int statusId;
+    @Transient
+    private List<Link> links = new ArrayList<Link>();
+
     public int getStepId() {
         return stepId;
     }
@@ -41,8 +46,7 @@ public class Step {
         this.stepId = stepId;
     }
 
-    @Basic
-    @Column(name = "creationDate")
+
     public Date getCreationDate() {
         return creationDate;
     }
@@ -51,8 +55,6 @@ public class Step {
         this.creationDate = creationDate;
     }
 
-    @Basic
-    @Column(name = "title")
     public String getTitle() {
         return title;
     }
@@ -61,8 +63,6 @@ public class Step {
         this.title = title;
     }
 
-    @Basic
-    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -71,18 +71,16 @@ public class Step {
         this.description = description;
     }
 
-    @Basic
-    @Column(name = "progression")
-    public double getProgression() {
-        return progression;
-    }
 
-    public void setProgression(double progression) {
-        this.progression = progression;
-    }
+//    public int getProgression() {
+//        return progression;
+//    }
+//
+//    public void setProgression(int progression) {
+//        this.progression = progression;
+//    }
 
-    @Basic
-    @Column(name = "ideaID")
+
     public int getIdeaId() {
         return ideaId;
     }
@@ -91,8 +89,7 @@ public class Step {
         this.ideaId = ideaId;
     }
 
-    @Basic
-    @Column(name = "statusID")
+
     public int getStatusId() {
         return statusId;
     }
@@ -101,21 +98,21 @@ public class Step {
         this.statusId = statusId;
     }
 
-//    @Transient
-//    public List<Link> getLinks() {
-//        return links;
-//    }
-//    @Transient
-//    public void setLinks(List<Link> links) {
-//        this.links = links;
-//    }
-//    @Transient
-//    public void addLink(String url, String rel) {
-//        Link link = new Link();
-//        link.setLink(url);
-//        link.setRel(rel);
-//        links.add(link);
-//    }
+    @Transient
+    public List<Link> getLinks() {
+        return links;
+    }
+    @Transient
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+    @Transient
+    public void addLink(String url, String rel) {
+        Link link = new Link();
+        link.setLink(url);
+        link.setRel(rel);
+        links.add(link);
+    }
 //
 //    @Override
 //    public boolean equals(Object o) {

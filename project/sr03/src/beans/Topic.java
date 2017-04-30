@@ -2,7 +2,9 @@ package beans;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by utilisateur on 17/04/2017.
@@ -14,6 +16,8 @@ public class Topic {
     private Byte locked;
     private Timestamp creationDate;
     private int stepId;
+    @Transient
+    private List<Link> links = new ArrayList<Link>();
 //    private Collection<Post> postsByTopicId;
 //    private Step stepByStepId;
 
@@ -56,6 +60,22 @@ public class Topic {
 
     public void setStepId(int stepId) {
         this.stepId = stepId;
+    }
+
+    @Transient
+    public List<Link> getLinks() {
+        return links;
+    }
+    @Transient
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+    @Transient
+    public void addLink(String url, String rel) {
+        Link link = new Link();
+        link.setLink(url);
+        link.setRel(rel);
+        links.add(link);
     }
 
 //    @Override
