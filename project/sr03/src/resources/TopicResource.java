@@ -18,8 +18,13 @@ public class TopicResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Topic> getAllTopics(@PathParam("ideaId") Integer ideaId) {
-        return topicService.getAllTopics(ideaId);
+    public List<Topic> getAllTopics(@PathParam("ideaId") Integer ideaId, @Context UriInfo uriInfo) {
+        List<Topic> topics = topicService.getAllTopics(ideaId);
+        for (Topic topic : topics) {
+            topic.addLink(getUriForSelf(uriInfo, topic), "self");
+            topic.addLink(getUriForPosts(uriInfo, topic), "posts");
+        }
+        return topics;
     }
 
     @GET
@@ -29,32 +34,30 @@ public class TopicResource {
                          @PathParam("topicId") Integer topicId,
                          @Context UriInfo uriInfo) {
         Topic topic = topicService.getTopic(ideaId, topicId, uriInfo);
-//        step.addLink(getUriForSelf(id, uriInfo), "self");
-//        step.addLink(getUriForStep(id, uriInfo), "self");
+        topic.addLink(getUriForSelf(uriInfo, topic), "self");
+        topic.addLink(getUriForPosts(uriInfo, topic), "posts");
         return topic;
     }
 
-//    @GET
-//    @Path("/{topicId}")
-//    public String getString() {
-//        return "Yep";
-//    }
+    private String getUriForPosts(UriInfo uriInfo, Topic topic) {
+        return uriInfo.getBaseUriBuilder()
+                .path(IdeaResource.class)
+                .path(IdeaResource.class, "getTopicResource")
+                .resolveTemplate("ideaId", topic.getStep().getIdea().getIdeaId())
+                .path(TopicResource.class, "getPostResource")
+                .resolveTemplate("topicId", topic.getTopicId())
+                .build()
+                .toString();
+    }
 
-//    private String getUriForStep(Integer id, UriInfo uriInfo) {
-//        return uriInfo.getBaseUriBuilder()
-//                .path(StepResource.class)
-//                .path(Integer.toString(id))
-//                .build()
-//                .toString();
-//    }
-//
-//    private String getUriForSelf(Integer id, UriInfo uriInfo) {
-//        return uriInfo.getBaseUriBuilder()
-//                .path(IdeaResource.class)
-//                .path(Integer.toString(id))
-//                .build()
-//                .toString();
-//    }
+    private String getUriForSelf(UriInfo uriInfo, Topic topic) {
+        return uriInfo.getBaseUriBuilder()
+                .path(IdeaResource.class)
+                .path(IdeaResource.class, "getTopicResource")
+                .resolveTemplate("ideaId", topic.getStep().getIdea().getIdeaId())
+                .build()
+                .toString();
+    }
 
 //    @POST
 //    @Consumes(MediaType.APPLICATION_JSON)

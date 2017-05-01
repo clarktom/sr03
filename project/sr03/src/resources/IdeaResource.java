@@ -20,8 +20,15 @@ public class IdeaResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Idea> getResearchers() {
-        return ideaService.getAllIdeas();
+    public List<Idea> getAllIdeas(@Context UriInfo uriInfo) {
+        List<Idea> ideas = ideaService.getAllIdeas();
+        for (Idea idea : ideas) {
+            idea.addLink(getUriForSelf(uriInfo, idea), "self");
+            idea.addLink(getUriForResearcher(uriInfo, idea), "researcher");
+//        idea.addLink(getUriForCategory(uriInfo, idea), "category");
+            idea.addLink(getUriForTopics(uriInfo, idea), "topics");
+        }
+        return ideas;
     }
 
     @GET
@@ -32,7 +39,7 @@ public class IdeaResource {
         idea.addLink(getUriForSelf(uriInfo, idea), "self");
         idea.addLink(getUriForResearcher(uriInfo, idea), "researcher");
 //        idea.addLink(getUriForCategory(uriInfo, idea), "category");
-        idea.addLink(getUriForTopics(uriInfo, idea), "steps");
+        idea.addLink(getUriForTopics(uriInfo, idea), "topics");
         return idea;
     }
 
