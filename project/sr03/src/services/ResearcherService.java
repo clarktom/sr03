@@ -37,7 +37,9 @@ public class ResearcherService {
     public Researcher getResearcher(String username, UriInfo uriInfo) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Object obj = session.get(Researcher.class, username);
+        Query query= session.createQuery("from Researcher where username=:username");
+        query.setParameter("username", username);
+        Object obj = query.uniqueResult();
         if (obj == null) {
             throw new DataNotFoundException("Researcher with username " + username + " not found");
         }
@@ -47,7 +49,9 @@ public class ResearcherService {
     public void deleteResearcher(String username) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Object obj = session.get(Researcher.class, username);
+        Query query= session.createQuery("from Researcher where username=:username");
+        query.setParameter("username", username);
+        Object obj = query.uniqueResult();
         if (obj == null) {
             throw new DataNotFoundException("Researcher with username " + username + " not found");
         }

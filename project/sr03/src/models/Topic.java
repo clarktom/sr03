@@ -1,7 +1,8 @@
 package models;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
@@ -57,6 +58,9 @@ public class Topic {
         this.posts = posts;
     }
 
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="stepId")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("stepId")
     public Step getStep() {
         return step;
     }

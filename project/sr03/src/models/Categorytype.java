@@ -27,7 +27,6 @@ public class Categorytype {
         this.categoryId = categoryId;
     }
 
-
     public String getCategory() {
         return category;
     }

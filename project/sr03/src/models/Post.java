@@ -1,6 +1,11 @@
 package models;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -48,6 +53,9 @@ public class Post {
         this.date = date;
     }
 
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="researcherId")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("researcherId")
     public Researcher getResearcher() {
         return researcher;
     }
@@ -55,10 +63,14 @@ public class Post {
         this.researcher = researcher;
     }
 
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="topicId")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("topicId")
     public Topic getTopic() {
         return topic;
     }
     public void setTopic(Topic topic) {
         this.topic = topic;
     }
+
 }

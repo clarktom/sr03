@@ -1,7 +1,8 @@
 package models;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
@@ -111,6 +112,9 @@ public class Step {
         this.simulations = simulations;
     }
 
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="ideaId")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("ideaId")
     public Idea getIdea() {
         return idea;
     }
@@ -118,6 +122,9 @@ public class Step {
         this.idea = idea;
     }
 
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="statusId")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("statusId")
     public Statustype getStatustype() {
         return statustype;
     }

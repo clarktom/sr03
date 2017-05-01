@@ -1,5 +1,10 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 /**
@@ -51,10 +56,14 @@ public class Prototype {
         this.results = results;
     }
 
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="stepId")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("stepId")
     public Step getStep() {
         return step;
     }
     public void setStep(Step step) {
         this.step = step;
     }
+
 }
