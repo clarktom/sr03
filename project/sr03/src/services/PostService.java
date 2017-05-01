@@ -1,6 +1,6 @@
 package services;
 
-import models.Step;
+import models.Post;
 import exceptions.DataNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -11,13 +11,13 @@ import java.util.List;
 /**
  * Created by tompu on 30/04/2017.
  */
-public class StepService {
+public class PostService {
 
-    public void addStep(Step step) {
+    public void addPost(Post post) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         try {
-            session.save(step);
+            session.save(post);
         } catch (Exception e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -25,40 +25,44 @@ public class StepService {
         session.getTransaction().commit();
     }
 
-    public List<Step> getAllSteps() {
+    public List<Post> getAllPosts(Integer topicId) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.createQuery("select s from Step s");
-        List<Step> steps = query.list();
+        Query query = session.createQuery("select p from Post p where p.topic.topicId = :topicId");
+        query.setParameter("topicId", topicId);
+        List<Post> posts = query.list();
         session.getTransaction().commit();
-        return steps;
+        return posts;
     }
 
-    public Step getStep(Integer id, UriInfo uriInfo) {
+    public Post getPost(Integer topicId, Integer postId, UriInfo uriInfo) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Object obj = session.get(Step.class, id);
+        Query query= session.createQuery("select p from Post p where p.topic.topicId = :topicId and p.postId = :postId");
+        query.setParameter("topicId", topicId);
+        query.setParameter("postId", postId);
+        Object obj = query.uniqueResult();
         if (obj == null) {
-            throw new DataNotFoundException("Step with id " + id + " not found");
+            throw new DataNotFoundException("Post with postId " + postId + " related to Topic with topicId " + topicId + " not found");
         }
-        return (Step)obj;
+        return (Post)obj;
     }
 
-    public void deleteStep(Integer id) {
+    public void deletePost(Integer id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Object obj = session.get(Step.class, id);
+        Object obj = session.get(Post.class, id);
         if (obj == null) {
-            throw new DataNotFoundException("Step with id " + id + " not found");
+            throw new DataNotFoundException("Post with id " + id + " not found");
         }
         session.delete(obj);
         session.getTransaction().commit();
     }
 
-    public void updateStep(Step step) {
+    public void updatePost(Post post) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        session.update(step);
+        session.update(post);
         session.getTransaction().commit();
     }
 

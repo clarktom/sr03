@@ -3,32 +3,41 @@ package resources;
 import models.Topic;
 import services.TopicService;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
+import javax.ws.rs.core.UriInfo;
+import java.util.List;
 
 /**
  * Created by tompu on 25/04/2017.
  */
 
-@Path("/topics")
 public class TopicResource {
 
     TopicService topicService = new TopicService();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Topic> getTopics() {
-        return topicService.getAllTopics();
+    public List<Topic> getAllTopics(@PathParam("ideaId") Integer ideaId) {
+        return topicService.getAllTopics(ideaId);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{topicId}")
+    public Topic getStep(@PathParam("ideaId") Integer ideaId,
+                         @PathParam("topicId") Integer topicId,
+                         @Context UriInfo uriInfo) {
+        Topic topic = topicService.getTopic(ideaId, topicId, uriInfo);
+//        step.addLink(getUriForSelf(id, uriInfo), "self");
+//        step.addLink(getUriForStep(id, uriInfo), "self");
+        return topic;
     }
 
 //    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("/{id}")
-//    public Step getStep(@PathParam("id") Integer id, @Context UriInfo uriInfo) {
-//        Step step = stepService.getStep(id);
-//        step.addLink(getUriForSelf(id, uriInfo), "self");
-//        step.addLink(getUriForStep(id, uriInfo), "self");
-//        return step;
+//    @Path("/{topicId}")
+//    public String getString() {
+//        return "Yep";
 //    }
 
 //    private String getUriForStep(Integer id, UriInfo uriInfo) {
@@ -60,5 +69,10 @@ public class TopicResource {
 //    public Idea removeIdea(@PathParam("id") Integer id) throws Exception {
 //        return stepService.removeIdea(id);
 //    }
+
+    @Path("/{topicId}/posts")
+    public PostResource getPostResource() {
+        return new PostResource();
+    }
 
 }
