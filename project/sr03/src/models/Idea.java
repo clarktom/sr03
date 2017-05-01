@@ -1,10 +1,10 @@
 package models;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -62,6 +62,9 @@ public class Idea {
         this.creationDate = creationDate;
     }
 
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="researcherId")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("researcherId")
     public Researcher getResearcher() {
         return researcher;
     }
@@ -69,6 +72,9 @@ public class Idea {
         this.researcher = researcher;
     }
 
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="categoryId")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("categoryId")
     public Categorytype getCategorytype() {
         return categorytype;
     }

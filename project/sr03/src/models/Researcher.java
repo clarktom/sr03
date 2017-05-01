@@ -1,7 +1,6 @@
 package models;
 
-
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -11,7 +10,7 @@ import java.util.Set;
  * Created by tompu on 01/05/2017.
  */
 @Entity
-@Table(name="researcher")
+@Table(name = "researcher")
 public class Researcher {
 
     @Id

@@ -35,23 +35,41 @@
         <!--<url-pattern>/api/*</url-pattern>-->
     <!--</servlet-mapping>-->
 
-    <servlet>
-        <servlet-name>RestServer-serlvet</servlet-name>
-        <servlet-class>
-            com.sun.jersey.spi.container.servlet.ServletContainer
-        </servlet-class>
+    <!--<servlet>-->
+        <!--<servlet-name>RestServer-serlvet</servlet-name>-->
+        <!--<servlet-class>-->
+            <!--com.sun.jersey.spi.container.servlet.ServletContainer-->
+        <!--</servlet-class>-->
+        <!--&lt;!&ndash;<init-param>&ndash;&gt;-->
+            <!--&lt;!&ndash;<param-name>com.sun.jersey.config.property.packages</param-name>&ndash;&gt;-->
+            <!--&lt;!&ndash;<param-value>resources, exceptions, services, models</param-value>&ndash;&gt;-->
+        <!--&lt;!&ndash;</init-param>&ndash;&gt;-->
         <!--<init-param>-->
-            <!--<param-name>com.sun.jersey.config.property.packages</param-name>-->
-            <!--<param-value>resources, exceptions, services, models</param-value>-->
+            <!--<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>-->
+            <!--<param-value>true</param-value>-->
         <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>RestServer-serlvet</servlet-name>-->
+        <!--<url-pattern>/api/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+    <servlet>
+        <servlet-name>Jersey Servlet</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
-            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
-            <param-value>true</param-value>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>resources, exceptions, services</param-value>
         </init-param>
-        <load-on-startup>1</load-on-startup>
+        <!--<init-param>-->
+            <!--<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>-->
+            <!--<param-value>true</param-value>-->
+        <!--</init-param>-->
+        <!--<load-on-startup>1</load-on-startup>-->
     </servlet>
     <servlet-mapping>
-        <servlet-name>RestServer-serlvet</servlet-name>
+        <servlet-name>Jersey Servlet</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 
