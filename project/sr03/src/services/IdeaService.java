@@ -3,13 +3,9 @@ package services;
 import models.Idea;
 import exceptions.DataNotFoundException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import javax.ws.rs.core.UriInfo;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,6 +61,5 @@ public class IdeaService {
         session.update(idea);
         session.getTransaction().commit();
     }
-
 
 }

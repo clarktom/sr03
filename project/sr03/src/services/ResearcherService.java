@@ -3,74 +3,63 @@ package services;
 import models.Researcher;
 import exceptions.DataNotFoundException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-import org.hibernate.tool.schema.spi.ExceptionHandler;
 
-import javax.persistence.PersistenceException;
-import java.util.ArrayList;
-import java.util.ArrayList;
+import javax.ws.rs.core.UriInfo;
+import java.util.List;
 
 /**
- * Created by tompu on 29/04/2017.
+ * Created by tompu on 30/04/2017.
  */
 public class ResearcherService {
 
-    private SessionFactory factory = new Configuration().configure().buildSessionFactory();
-//    private Session session = factory.openSession();
-    private Session session = factory.getCurrentSession();
-
-    public ArrayList<Researcher> getAllResearchers() {
-        Query query = session.createQuery( "from Researcher R");
-        return (ArrayList<Researcher>)query.list();
+    public void addResearcher(Researcher researcher) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        try {
+            session.save(researcher);
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        session.getTransaction().commit();
     }
 
-    public Researcher getResearcher(String username) {
-        Query query = session.createQuery( "from Researcher R where R.username = :username");
-        query.setParameter("username", username);
-        Researcher researcher = (Researcher)query.uniqueResult();
-        if (researcher == null) {
+    public List<Researcher> getAllResearchers() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query = session.createQuery("select r from Researcher r");
+        List<Researcher> researchers = query.list();
+        session.getTransaction().commit();
+        return researchers;
+    }
+
+    public Researcher getResearcher(String username, UriInfo uriInfo) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Object obj = session.get(Researcher.class, username);
+        if (obj == null) {
             throw new DataNotFoundException("Researcher with username " + username + " not found");
         }
-        return researcher;
+        return (Researcher)obj;
     }
 
-    public Researcher addResearcher(Researcher researcher) throws Exception {
-        SessionFactory factory = new Configuration().configure().buildSessionFactory();
-        Session session = factory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            session.save(researcher);
-            session.flush();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            throw e;
+    public void deleteResearcher(String username) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Object obj = session.get(Researcher.class, username);
+        if (obj == null) {
+            throw new DataNotFoundException("Researcher with username " + username + " not found");
         }
-        Integer id = (Integer) session.createQuery( "SELECT max( r.researcherId ) FROM Researcher r").uniqueResult();
-        Query query = session.createQuery( "from Researcher R where R.researcherId = :id");
-        query.setParameter("id", id);
-        researcher = (Researcher)query.uniqueResult();
-        session.close();
-        factory.close();
+        session.delete(obj);
+        session.getTransaction().commit();
+    }
 
-        return researcher;
-//        session.beginTransaction();
-//        session.save(rs);
-//        try
-//        {
-//            session.getTransaction().commit();
-//        }
-//        catch(PersistenceException E)
-//        {
-//            return false;
-//        }
-//        return true;
+    public void updateResearcher(Researcher researcher) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.update(researcher);
+        session.getTransaction().commit();
     }
 
 }
