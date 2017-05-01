@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
-    "-//Hibernate/Hibernate Configuration DTD//EN"
-    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
     <property name="connection.url">jdbc:mysql://localhost:3306/app_db?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
@@ -12,18 +12,24 @@
     <property name="hibernate.connection.password">
       admin
     </property>
-      <mapping class="beans.Baseidea"/>
-      <mapping class="beans.Categorytype"/>
-      <mapping class="beans.Idea"/>
-      <mapping class="beans.Post"/>
-      <mapping class="beans.Product"/>
-      <mapping class="beans.Prototype"/>
-      <mapping class="beans.Researcher"/>
-      <mapping class="beans.Simulation"/>
-      <mapping class="beans.Statustype"/>
-      <mapping class="beans.Step"/>
-      <mapping class="beans.Topic"/>
-      <!-- <property name="connection.username"/> -->
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    <property name="use_sql_comments">true</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+    <!--<property name="hibernate.hbm2ddl.auto">update</property>-->
+    <property name="hibernate.current_session_context_class">thread</property>
+    <mapping class="models.Baseidea"/>
+    <mapping class="models.Categorytype"/>
+    <mapping class="models.Idea"/>
+    <mapping class="models.Post"/>
+    <mapping class="models.Product"/>
+    <mapping class="models.Prototype"/>
+    <mapping class="models.Researcher"/>
+    <mapping class="models.Simulation"/>
+    <mapping class="models.Statustype"/>
+    <mapping class="models.Step"/>
+    <mapping class="models.Topic"/>
+    <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
     <!-- DB schema will be updated if needed -->

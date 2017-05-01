@@ -1,6 +1,6 @@
 package resources;
 
-import beans.Researcher;
+import models.Researcher;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -10,9 +10,12 @@ import services.ResearcherService;
 
 import javax.persistence.PersistenceException;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.ExceptionMapper;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tompu on 25/04/2017.
@@ -25,15 +28,15 @@ public class ResearcherResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Researcher> getResearchers() {
+    public List<Researcher> getResearchers() {
         return researcherService.getAllResearchers();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{username}")
-    public Researcher getResearcher(@PathParam("username") String username) {
-        return researcherService.getResearcher(username);
+    public Researcher getResearcher(@PathParam("username") String username, @Context UriInfo uriInfo) {
+        return researcherService.getResearcher(username, uriInfo);
     }
 
     /*
@@ -45,9 +48,9 @@ public class ResearcherResource {
     */
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Researcher addResearcher(Researcher researcher) throws Exception {
-        return researcherService.addResearcher(researcher);
+//    @Produces(MediaType.APPLICATION_JSON)
+    public void addResearcher(Researcher researcher) throws Exception {
+        researcherService.addResearcher(researcher);
     }
 
 }
