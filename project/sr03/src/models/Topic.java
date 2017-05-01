@@ -1,5 +1,8 @@
 package models;
 
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -20,7 +23,7 @@ public class Topic {
     private Byte locked;
     @Column(name = "creationDate")
     private Timestamp creationDate;
-    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Post> posts;
     @ManyToOne
     @JoinColumn(name = "stepID")
@@ -48,6 +51,7 @@ public class Topic {
         this.creationDate = creationDate;
     }
 
+    @JsonIgnore
     public Set<Post> getPosts() {
         return posts;
     }

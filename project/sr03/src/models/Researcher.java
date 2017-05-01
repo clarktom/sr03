@@ -1,5 +1,8 @@
 package models;
 
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
@@ -25,9 +28,9 @@ public class Researcher {
     private String email;
     @Column(name = "password")
     private String password;
-    @OneToMany(mappedBy = "researcher", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "researcher", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Idea> ideas;
-    @OneToMany(mappedBy = "researcher", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "researcher", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Post> posts;
 
 
@@ -73,6 +76,7 @@ public class Researcher {
         this.password = password;
     }
 
+    @JsonIgnore
     public Set<Idea> getIdeas() {
         return ideas;
     }
@@ -80,6 +84,7 @@ public class Researcher {
         this.ideas = ideas;
     }
 
+    @JsonIgnore
     public Set<Post> getPosts() {
         return posts;
     }

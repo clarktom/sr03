@@ -1,5 +1,7 @@
 package models;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -28,7 +30,7 @@ public class Idea {
     @ManyToOne
     @JoinColumn(name = "categoryID")
     private Categorytype categorytype;
-    @OneToMany(mappedBy = "idea", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "idea", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Step> steps;
 
 
@@ -74,6 +76,7 @@ public class Idea {
         this.categorytype = categorytype;
     }
 
+    @JsonIgnore
     public Set<Step> getSteps() {
         return steps;
     }

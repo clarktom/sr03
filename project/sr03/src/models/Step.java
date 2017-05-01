@@ -1,5 +1,7 @@
 package models;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
@@ -10,6 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "step")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 public class Step {
 
     @Id
@@ -38,7 +41,7 @@ public class Step {
     @ManyToOne
     @JoinColumn(name = "statusID")
     private Statustype statustype;
-    @OneToMany(mappedBy = "step", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "step", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Topic> topics;
 
 
@@ -77,6 +80,7 @@ public class Step {
         this.progression = progression;
     }
 
+    @JsonIgnore
     public Set<Baseidea> getBaseideas() {
         return baseideas;
     }
@@ -84,6 +88,7 @@ public class Step {
         this.baseideas = baseideas;
     }
 
+    @JsonIgnore
     public Set<Product> getProducts() {
         return products;
     }
@@ -91,6 +96,7 @@ public class Step {
         this.products = products;
     }
 
+    @JsonIgnore
     public Set<Prototype> getPrototypes() {
         return prototypes;
     }
@@ -98,6 +104,7 @@ public class Step {
         this.prototypes = prototypes;
     }
 
+    @JsonIgnore
     public Set<Simulation> getSimulations() {
         return simulations;
     }
@@ -119,6 +126,7 @@ public class Step {
         this.statustype = statustype;
     }
 
+    @JsonIgnore
     public Set<Topic> getTopics() {
         return topics;
     }

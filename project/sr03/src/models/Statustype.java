@@ -1,5 +1,8 @@
 package models;
 
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
@@ -17,7 +20,7 @@ public class Statustype {
     private int statusId;
     @Column(name = "status")
     private String status;
-    @OneToMany(mappedBy = "statustype", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "statustype", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Step> steps;
 
 
@@ -35,6 +38,7 @@ public class Statustype {
         this.status = status;
     }
 
+    @JsonIgnore
     public Set<Step> getSteps() {
         return steps;
     }

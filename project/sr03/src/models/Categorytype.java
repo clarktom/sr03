@@ -1,5 +1,6 @@
 package models;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
@@ -17,7 +18,7 @@ public class Categorytype {
     private int categoryId;
     @Column(name = "category")
     private String category;
-    @OneToMany(mappedBy = "categorytype", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categorytype", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Idea> ideas;
 
     public int getCategoryId() {
@@ -35,6 +36,7 @@ public class Categorytype {
         this.category = category;
     }
 
+    @JsonIgnore
     public Set<Idea> getIdeas() {
         return ideas;
     }
