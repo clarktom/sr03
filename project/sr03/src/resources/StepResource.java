@@ -1,6 +1,6 @@
 package resources;
 
-import beans.Step;
+import models.Step;
 import services.StepService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -23,15 +23,15 @@ public class StepResource {
         return stepService.getAllSteps();
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("/{id}")
-//    public Step getStep(@PathParam("id") Integer id, @Context UriInfo uriInfo) {
-//        Step step = stepService.getStep(id);
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/{id}")
+    public Step getStep(@PathParam("id") Integer id, @Context UriInfo uriInfo) {
+        Step step = stepService.getStep(id);
 //        step.addLink(getUriForSelf(id, uriInfo), "self");
 //        step.addLink(getUriForStep(id, uriInfo), "self");
-//        return step;
-//    }
+        return step;
+    }
 
 //    private String getUriForStep(Integer id, UriInfo uriInfo) {
 //        return uriInfo.getBaseUriBuilder()

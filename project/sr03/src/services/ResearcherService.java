@@ -1,6 +1,6 @@
 package services;
 
-import beans.Researcher;
+import models.Researcher;
 import exceptions.DataNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -19,7 +19,8 @@ import java.util.ArrayList;
 public class ResearcherService {
 
     private SessionFactory factory = new Configuration().configure().buildSessionFactory();
-    private Session session = factory.openSession();
+//    private Session session = factory.openSession();
+    private Session session = factory.getCurrentSession();
 
     public ArrayList<Researcher> getAllResearchers() {
         Query query = session.createQuery( "from Researcher R");

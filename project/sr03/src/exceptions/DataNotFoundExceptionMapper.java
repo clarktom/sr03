@@ -1,6 +1,6 @@
 package exceptions;
 
-import beans.ErrorMessage;
+import models.ErrorMessage;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

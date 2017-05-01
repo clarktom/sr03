@@ -441,34 +441,39 @@
       <DataType>longtext|0</DataType>
     </column>
     <column id="107" parent="15" name="ideaID">
-      <Position>5</Position>
-      <DataType>int(10) unsigned|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="108" parent="15" name="statusID">
       <Position>6</Position>
       <DataType>int(10) unsigned|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="109" parent="15" name="ideaID_idx">
+    <column id="108" parent="15" name="statusID">
+      <Position>7</Position>
+      <DataType>int(10) unsigned|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="109" parent="15" name="progression">
+      <Position>5</Position>
+      <DataType>double|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="110" parent="15" name="ideaID_idx">
       <ColNames>ideaID</ColNames>
     </index>
-    <index id="110" parent="15" name="statusID_idx">
+    <index id="111" parent="15" name="statusID_idx">
       <ColNames>statusID</ColNames>
     </index>
-    <index id="111" parent="15" name="stepID_UNIQUE">
+    <index id="112" parent="15" name="stepID_UNIQUE">
       <ColNames>stepID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="112" parent="15" name="PRIMARY">
+    <key id="113" parent="15" name="PRIMARY">
       <ColNames>stepID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="113" parent="15" name="stepID_UNIQUE">
+    <key id="114" parent="15" name="stepID_UNIQUE">
       <ColNames>stepID</ColNames>
       <UnderlyingIndexName>stepID_UNIQUE</UnderlyingIndexName>
     </key>
-    <foreign-key id="114" parent="15" name="ideaID">
+    <foreign-key id="115" parent="15" name="ideaID">
       <ColNames>ideaID</ColNames>
       <RefSchemaName>app_db</RefSchemaName>
       <RefTableName>idea</RefTableName>
@@ -476,7 +481,7 @@
       <OnUpdate>no-action</OnUpdate>
       <OnDelete>no-action</OnDelete>
     </foreign-key>
-    <foreign-key id="115" parent="15" name="statusIDFK">
+    <foreign-key id="116" parent="15" name="statusIDFK">
       <ColNames>statusID</ColNames>
       <RefSchemaName>app_db</RefSchemaName>
       <RefTableName>statustype</RefTableName>
@@ -484,41 +489,41 @@
       <OnUpdate>no-action</OnUpdate>
       <OnDelete>no-action</OnDelete>
     </foreign-key>
-    <column id="116" parent="16" name="topicID">
+    <column id="117" parent="16" name="topicID">
       <Position>1</Position>
       <DataType>int(10) unsigned|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="117" parent="16" name="locked">
+    <column id="118" parent="16" name="locked">
       <Position>2</Position>
       <DataType>tinyint(1)|0</DataType>
     </column>
-    <column id="118" parent="16" name="creationDate">
+    <column id="119" parent="16" name="creationDate">
       <Position>3</Position>
       <DataType>datetime|0</DataType>
     </column>
-    <column id="119" parent="16" name="stepID">
+    <column id="120" parent="16" name="stepID">
       <Position>4</Position>
       <DataType>int(10) unsigned|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="120" parent="16" name="stepID_idx">
+    <index id="121" parent="16" name="stepID_idx">
       <ColNames>stepID</ColNames>
     </index>
-    <index id="121" parent="16" name="topicID_UNIQUE">
+    <index id="122" parent="16" name="topicID_UNIQUE">
       <ColNames>topicID</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="122" parent="16" name="PRIMARY">
+    <key id="123" parent="16" name="PRIMARY">
       <ColNames>topicID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="123" parent="16" name="topicID_UNIQUE">
+    <key id="124" parent="16" name="topicID_UNIQUE">
       <ColNames>topicID</ColNames>
       <UnderlyingIndexName>topicID_UNIQUE</UnderlyingIndexName>
     </key>
-    <foreign-key id="124" parent="16" name="stepID">
+    <foreign-key id="125" parent="16" name="stepID">
       <ColNames>stepID</ColNames>
       <RefSchemaName>app_db</RefSchemaName>
       <RefTableName>step</RefTableName>

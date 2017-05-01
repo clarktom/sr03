@@ -1,6 +1,6 @@
 package services;
 
-import beans.Topic;
+import models.Topic;
 import exceptions.DataNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

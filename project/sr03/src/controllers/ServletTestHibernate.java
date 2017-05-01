@@ -1,6 +1,6 @@
 package controllers;
 
-import beans.Researcher;
+import models.Researcher;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,20 +38,20 @@ public class ServletTestHibernate extends HttpServlet {
         out.println("<h2>Servlet de test HIBERNATE</h2>");
 
         //INSERER UNE DONNEE
-        Researcher rs = new Researcher("yolo","yoloo","yay","earg","aear");
+//        Researcher rs = new Researcher("yolo","yoloo","yay","earg","aear");
 
-        SessionFactory factory = new Configuration().configure().buildSessionFactory();
-        Session session = factory.openSession();
-        session.beginTransaction();
-        session.save(rs);
-        session.getTransaction().commit();
+//        SessionFactory factory = new Configuration().configure().buildSessionFactory();
+//        Session session = factory.openSession();
+//        session.beginTransaction();
+//        session.save(rs);
+//        session.getTransaction().commit();
 
         //RECUPERER DES DONNEES
 //        SessionFactory factory = new Configuration().configure().buildSessionFactory();
 //        Session session = factory.openSession();
-        ArrayList<Researcher> researcherList = (ArrayList<Researcher>)session.createQuery("from Researcher s").list();
-        out.println(researcherList.toString());
-        out.println(researcherList.get(0).getName());
+//        ArrayList<Researcher> researcherList = (ArrayList<Researcher>)session.createQuery("from Researcher s").list();
+//        out.println(researcherList.toString());
+//        out.println(researcherList.get(0).getName());
 
     }
 }

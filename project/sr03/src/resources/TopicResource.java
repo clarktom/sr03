@@ -1,6 +1,6 @@
 package resources;
 
-import beans.Topic;
+import models.Topic;
 import services.TopicService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

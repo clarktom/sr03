@@ -1,6 +1,6 @@
 package resources;
 
-import beans.Researcher;
+import models.Researcher;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

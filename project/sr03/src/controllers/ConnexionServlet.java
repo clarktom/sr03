@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.Researcher;
+import models.Researcher;
 import forms.ConnexionForm;
 
 public class ConnexionServlet extends HttpServlet {

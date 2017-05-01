@@ -1,6 +1,6 @@
 package services;
 
-import beans.Step;
+import models.Step;
 import exceptions.DataNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

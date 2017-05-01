@@ -1,86 +1,70 @@
 package services;
 
-import beans.Idea;
+import models.Idea;
 import exceptions.DataNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
+
+import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tompu on 30/04/2017.
  */
 public class IdeaService {
 
-    private SessionFactory factory = new Configuration().configure().buildSessionFactory();
-    private Session session = factory.openSession();
-
-    public ArrayList<Idea> getAllIdeas() {
-        Query query = session.createQuery( "from Idea I");
-        return (ArrayList<Idea>)query.list();
+    public void addIdea(Idea idea) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        try {
+            session.save(idea);
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        session.getTransaction().commit();
     }
 
-    public Idea getIdea(Integer id) {
-        Query query = session.createQuery( "from Idea I where I.ideaId = :id");
-        query.setParameter("id", id);
-        Idea idea = (Idea)query.uniqueResult();
-        if (idea == null) {
+    public List<Idea> getAllIdeas() {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query = session.createQuery("select i from Idea i");
+        List<Idea> ideas = query.list();
+        session.getTransaction().commit();
+        return ideas;
+    }
+
+    public Idea getIdea(Integer id, UriInfo uriInfo) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Object obj = session.get(Idea.class, id);
+        if (obj == null) {
             throw new DataNotFoundException("Idea with id " + id + " not found");
         }
-        return idea;
+        return (Idea)obj;
     }
 
-    public Idea addIdea(Idea idea) throws Exception {
-//        SessionFactory factory = new Configuration().configure().buildSessionFactory();
-//        Session session = factory.openSession();
-        Transaction tx = null;
-        try {
-            tx = session.beginTransaction();
-            session.save(idea);
-            session.flush();
-            tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            throw e;
+    public void deleteIdea(Integer id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Object obj = session.get(Idea.class, id);
+        if (obj == null) {
+            throw new DataNotFoundException("Idea with id " + id + " not found");
         }
-        Integer id = (Integer) session.createQuery("SELECT max( i.ideaId ) FROM Idea i").uniqueResult();
-        Query query = session.createQuery("from Idea I where I.ideaId = :id");
-        query.setParameter("id", id);
-        idea = (Idea) query.uniqueResult();
-        session.close();
-        factory.close();
-
-        return idea;
+        session.delete(obj);
+        session.getTransaction().commit();
     }
 
-//    public Idea updateIdea(Integer id) throws Exception {
-//        String hqlUpdate = "update Idea I set " +
-//                "I.categoryId = :newCategoryId " +
-//                "I.creationDate = :newCreationDate " +
-//                "I.description = :newDescription " +
-//                "I.researcherId = :newResearcherId " +
-//                "I.title= :newTitle " +
-//                "where I.ideaId = :id";
-//        int updatedEntities = session.createQuery( hqlUpdate )
-//                .setString( "newCategoryId", newCategoryId )
-//                .setString( "oldName", oldName )
-//                .executeUpdate();
-//        tx.commit();
-//        session.close();
-//    }
-
-    public Idea removeIdea(Integer id) throws Exception {
-        Idea idea = getIdea(id);
-        Query query = session.createQuery("delete Idea I where I.ideaId = :id");
-        query.setParameter("id", id);
-        if (query.executeUpdate() <= 0) {
-            throw new Exception("impossible de supprimer la data");
-        }
-        return idea;
+    public void updateIdea(Idea idea) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.update(idea);
+        session.getTransaction().commit();
     }
+
 
 }
