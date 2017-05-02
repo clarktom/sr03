@@ -54,6 +54,7 @@ public class TopicResource {
         return uriInfo.getBaseUriBuilder()
                 .path(IdeaResource.class)
                 .path(IdeaResource.class, "getTopicResource")
+                .path(Integer.toString(topic.getTopicId()))
                 .resolveTemplate("ideaId", topic.getStep().getIdea().getIdeaId())
                 .build()
                 .toString();
