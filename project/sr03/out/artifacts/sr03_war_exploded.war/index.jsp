@@ -11,9 +11,7 @@
     <title> Accueil </title>
   </head>
   <body>
-    <header>
-        <h1> Bienvenue sur la page d'accueil </h1>
-    </header>
+    <jsp:include page="WEB-INF/header.jsp" />
 
     <article>
         <jsp:include page="WEB-INF/central_content.jsp" />
