@@ -14,7 +14,8 @@
               <jsp:include page="WEB-INF/unconnected.jsp" />
           </c:when>
           <c:otherwise>
-              <jsp:include page="WEB-INF/ideas.jsp" />
+              <html
+
           </c:otherwise>
       </c:choose>
     </article>
