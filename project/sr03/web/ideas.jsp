@@ -3,17 +3,10 @@
 
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <script src="js/ajax.js"></script>
-        <script src="js/ideas.js"></script>
-
-        <title>Menu</title>
-
-    </head>
+    <jsp:include page="WEB-INF/head.jsp" />
 
     <body onload="loadIdeas()">
-        <h1>Liste idées</h1>
+        <jsp:include page="WEB-INF/header.jsp" />
         <div id="articles"></div>
     </body>
 
