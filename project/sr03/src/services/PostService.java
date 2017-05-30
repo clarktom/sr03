@@ -1,6 +1,6 @@
 package services;
 
-import models.Topic;
+import models.Post;
 import exceptions.DataNotFoundException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -11,13 +11,13 @@ import java.util.List;
 /**
  * Created by tompu on 30/04/2017.
  */
-public class TopicService {
+public class PostService {
 
-    public void addTopic(Topic topic) {
+    public void addPost(Post post) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
         try {
-            session.save(topic);
+            session.save(post);
         } catch (Exception e) {
             session.getTransaction().rollback();
             e.printStackTrace();
@@ -25,47 +25,44 @@ public class TopicService {
         session.getTransaction().commit();
     }
 
-    public List<Topic> getAllTopics(Integer ideaId) {
+    public List<Post> getAllPosts(Integer topicId) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.createQuery("select t from Topic t where t.step.stepId in (select s.stepId from Step s where s.idea.ideaId = :ideaId)");
-        query.setParameter("ideaId", ideaId);
-        List<Topic> topics = query.list();
+        Query query = session.createQuery("select p from Post p where p.topic.topicId = :topicId");
+        query.setParameter("topicId", topicId);
+        List<Post> posts = query.list();
         session.getTransaction().commit();
-        if (topics.size() == 0) {
-            throw new DataNotFoundException("Topics for Idea with id " + ideaId + " not found");
-        }
-        return topics;
+        return posts;
     }
 
-    public Topic getTopic(Integer ideaId, Integer topicId, UriInfo uriInfo) {
+    public Post getPost(Integer topicId, Integer postId, UriInfo uriInfo) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query= session.createQuery("select t from Topic t where t.step.stepId in (select s.stepId from Step s where s.idea.ideaId = :ideaId) and t.topicId = :topicId");
-        query.setParameter("ideaId", ideaId);
+        Query query= session.createQuery("select p from Post p where p.topic.topicId = :topicId and p.postId = :postId");
         query.setParameter("topicId", topicId);
+        query.setParameter("postId", postId);
         Object obj = query.uniqueResult();
         if (obj == null) {
-            throw new DataNotFoundException("Topic with id " + topicId + " not found in Idea id " + ideaId);
+            throw new DataNotFoundException("Post with postId " + postId + " related to Topic with topicId " + topicId + " not found");
         }
-        return (Topic)obj;
+        return (Post)obj;
     }
 
-    public void deleteTopic(Integer id) {
+    public void deletePost(Integer id) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Object obj = session.get(Topic.class, id);
+        Object obj = session.get(Post.class, id);
         if (obj == null) {
-            throw new DataNotFoundException("Topic with id " + id + " not found");
+            throw new DataNotFoundException("Post with id " + id + " not found");
         }
         session.delete(obj);
         session.getTransaction().commit();
     }
 
-    public void updateTopic(Topic topic) {
+    public void updatePost(Post post) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        session.update(topic);
+        session.update(post);
         session.getTransaction().commit();
     }
 
