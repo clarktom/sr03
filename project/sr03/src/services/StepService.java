@@ -3,83 +3,70 @@ package services;
 import models.Step;
 import exceptions.DataNotFoundException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
-import java.util.ArrayList;
+
+import javax.ws.rs.core.UriInfo;
+import java.util.List;
 
 /**
  * Created by tompu on 30/04/2017.
  */
 public class StepService {
 
-    private SessionFactory factory = new Configuration().configure().buildSessionFactory();
-    private Session session = factory.openSession();
-
-    public ArrayList<Step> getAllSteps() {
-        Query query = session.createQuery( "from Step S");
-        return (ArrayList<Step>)query.list();
+    public void addStep(Step step) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        try {
+            session.save(step);
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+            e.printStackTrace();
+        }
+        session.getTransaction().commit();
     }
 
-    public Step getStep(Integer id) {
-        Query query = session.createQuery( "from Step S where S.stepId = :id");
-        query.setParameter("id", id);
-        Step step = (Step)query.uniqueResult();
-        if (step == null) {
+    public List<Step> getAllSteps(Integer ideaId) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query = session.createQuery("select s from Step s where s.stepId in (select s.stepId from Step s where s.idea.ideaId = :ideaId)");
+        query.setParameter("ideaId", ideaId);
+        List<Step> steps = query.list();
+        session.getTransaction().commit();
+        if (steps.size() == 0) {
+            throw new DataNotFoundException("Steps for Idea with id " + ideaId + " not found");
+        }
+        return steps;
+    }
+
+    public Step getStep(Integer ideaId, Integer stepId, UriInfo uriInfo) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Query query= session.createQuery("select s from Step s where s.stepId in (select s.stepId from Step s where s.idea.ideaId = :ideaId) and s.stepId = :stepId");
+        query.setParameter("ideaId", ideaId);
+        query.setParameter("stepId", stepId);
+        Object obj = query.uniqueResult();
+        if (obj == null) {
+            throw new DataNotFoundException("Step with id " + stepId + " not found in Idea id " + ideaId);
+        }
+        return (Step)obj;
+    }
+
+    public void deleteStep(Integer id) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        Object obj = session.get(Step.class, id);
+        if (obj == null) {
             throw new DataNotFoundException("Step with id " + id + " not found");
         }
-        return step;
+        session.delete(obj);
+        session.getTransaction().commit();
     }
 
-//    public Step addStep(Step step) throws Exception {
-////        SessionFactory factory = new Configuration().configure().buildSessionFactory();
-////        Session session = factory.openSession();
-//        Transaction tx = null;
-//        try {
-//            tx = session.beginTransaction();
-//            session.save(idea);
-//            session.flush();
-//            tx.commit();
-//        } catch (Exception e) {
-//            if (tx != null) {
-//                tx.rollback();
-//            }
-//            throw e;
-//        }
-//        Integer id = (Integer) session.createQuery("SELECT max( i.ideaId ) FROM Idea i").uniqueResult();
-//        Query query = session.createQuery("from Idea I where I.ideaId = :id");
-//        query.setParameter("id", id);
-//        idea = (Step) query.uniqueResult();
-//        session.close();
-//        factory.close();
-//
-//        return idea;
-//    }
-
-//    public Idea updateIdea(Integer id) throws Exception {
-//        String hqlUpdate = "update Idea I set " +
-//                "I.categoryId = :newCategoryId " +
-//                "I.creationDate = :newCreationDate " +
-//                "I.description = :newDescription " +
-//                "I.researcherId = :newResearcherId " +
-//                "I.title= :newTitle " +
-//                "where I.ideaId = :id";
-//        int updatedEntities = session.createQuery( hqlUpdate )
-//                .setString( "newCategoryId", newCategoryId )
-//                .setString( "oldName", oldName )
-//                .executeUpdate();
-//        tx.commit();
-//        session.close();
-//    }
-
-//    public Step removeIdea(Integer id) throws Exception {
-//        Step idea = getIdea(id);
-//        Query query = session.createQuery("delete Idea I where I.ideaId = :id");
-//        query.setParameter("id", id);
-//        if (query.executeUpdate() <= 0) {
-//            throw new Exception("impossible de supprimer la data");
-//        }
-//        return idea;
-//    }
+    public void updateStep(Step step) {
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        session.beginTransaction();
+        session.update(step);
+        session.getTransaction().commit();
+    }
 
 }

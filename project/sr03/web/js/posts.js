@@ -1,9 +1,9 @@
 /**
- * Created by tompu on 23/05/2017.
+ * Created by tompu on 30/05/2017.
  */
 
-function loadIdeas() {
-    var articlesElt = document.getElementById("articles");
+function loadPosts() {
+    var articlesElt = document.getElementById("posts");
     ajaxGet("http://localhost:8080/sr03/api/ideas", function (reponse) {
         // Transforme la réponse en tableau d'objets JavaScript
         var ideas = JSON.parse(reponse);
@@ -20,5 +20,4 @@ function loadIdeas() {
         })
     });
 }
-
 

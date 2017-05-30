@@ -1,13 +1,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<html lang="en">
+    <html>
+    <head>
+        <jsp:include page="WEB-INF/head.jsp" />
+    </head>
 
-    <jsp:include page="WEB-INF/head.jsp" />
-
-    <body onload="loadIdeas()">
+    <body onload="loadSteps(${param.ideaID})">
         <jsp:include page="WEB-INF/header.jsp" />
-        <div id="articles"></div>
+        <div id="steps"></div>
     </body>
-
 </html>
+

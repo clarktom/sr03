@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,10 +26,35 @@ public class Topic {
     private Timestamp creationDate;
     @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Post> posts;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "stepID")
     private Step step;
 
+    @Transient
+    private List<Link> links = new ArrayList<Link>();
+    public List<Link> getLinks() {
+        return links;
+    }
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+    public void addLink(String url, String rel) {
+        Link link = new Link();
+        link.setLink(url);
+        link.setRel(rel);
+        links.add(link);
+    }
+
+
+    public Topic() {
+
+    }
+
+    public Topic(Byte locked, Timestamp creationDate, Step step) {
+        this.locked = locked;
+        this.creationDate = creationDate;
+        this.step = step;
+    }
 
     public int getTopicId() {
         return topicId;

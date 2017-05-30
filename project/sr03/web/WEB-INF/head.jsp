@@ -4,5 +4,11 @@
 
 
 <head>
+    <meta charset="utf-8">
+    <script src="js/ajax.js"></script>
+    <script src="js/ideas.js"></script>
+    <script src="js/steps.js"></script>
     <title> Cherchorum </title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
 </head>
