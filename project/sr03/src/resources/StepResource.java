@@ -13,55 +13,51 @@ import java.util.List;
  * Created by tompu on 25/04/2017.
  */
 
-@Path("/steps")
 public class StepResource {
 
     StepService stepService = new StepService();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Step> getSteps() {
-        return stepService.getAllSteps();
+    public List<Step> getAllSteps(@PathParam("ideaId") Integer ideaId, @Context UriInfo uriInfo) {
+        List<Step> steps = stepService.getAllSteps(ideaId);
+//        for (Step step : steps) {
+//            step.addLink(getUriForSelf(uriInfo, step), "self");
+//            step.addLink(getUriForPosts(uriInfo, step), "posts");
+//        }
+        return steps;
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{id}")
-    public Step getStep(@PathParam("id") Integer id, @Context UriInfo uriInfo) {
-        Step step = stepService.getStep(id, uriInfo);
-//        step.addLink(getUriForSelf(id, uriInfo), "self");
-//        step.addLink(getUriForStep(id, uriInfo), "self");
+    @Path("/{stepId}")
+    public Step getStep(@PathParam("ideaId") Integer ideaId,
+                         @PathParam("stepId") Integer stepId,
+                         @Context UriInfo uriInfo) {
+        Step step = stepService.getStep(ideaId, stepId, uriInfo);
+        step.addLink(getUriForSelf(uriInfo, step), "self");
+        step.addLink(getUriForTopic(uriInfo, step), "topic");
         return step;
     }
 
-//    private String getUriForStep(Integer id, UriInfo uriInfo) {
-//        return uriInfo.getBaseUriBuilder()
-//                .path(StepResource.class)
-//                .path(Integer.toString(id))
-//                .build()
-//                .toString();
-//    }
-//
-//    private String getUriForSelf(Integer id, UriInfo uriInfo) {
-//        return uriInfo.getBaseUriBuilder()
-//                .path(IdeaResource.class)
-//                .path(Integer.toString(id))
-//                .build()
-//                .toString();
-//    }
+    private String getUriForTopic(UriInfo uriInfo, Step step) {
+        return uriInfo.getBaseUriBuilder()
+                .path(IdeaResource.class)
+                .path(IdeaResource.class, "getTopicResource")
+                .resolveTemplate("ideaId", step.getIdea().getIdeaId())
+                .path(Integer.toString(step.getTopic().getTopicId()))
+                .build()
+                .toString();
+    }
 
-//    @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Idea addIdea(Idea idea) throws Exception {
-//        return stepService.addStep(idea);
-//    }
-//
-//    @DELETE
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("/{id}")
-//    public Idea removeIdea(@PathParam("id") Integer id) throws Exception {
-//        return stepService.removeIdea(id);
-//    }
+    private String getUriForSelf(UriInfo uriInfo, Step step) {
+        return uriInfo.getBaseUriBuilder()
+                .path(IdeaResource.class)
+                .path(IdeaResource.class, "getStepResource")
+                .path(Integer.toString(step.getStepId()))
+                .resolveTemplate("ideaId", step.getIdea().getIdeaId())
+                .build()
+                .toString();
+    }
 
 }

@@ -25,21 +25,28 @@ public class StepService {
         session.getTransaction().commit();
     }
 
-    public List<Step> getAllSteps() {
+    public List<Step> getAllSteps(Integer ideaId) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Query query = session.createQuery("select s from Step s");
+        Query query = session.createQuery("select s from Step s where s.stepId in (select s.stepId from Step s where s.idea.ideaId = :ideaId)");
+        query.setParameter("ideaId", ideaId);
         List<Step> steps = query.list();
         session.getTransaction().commit();
+        if (steps.size() == 0) {
+            throw new DataNotFoundException("Steps for Idea with id " + ideaId + " not found");
+        }
         return steps;
     }
 
-    public Step getStep(Integer id, UriInfo uriInfo) {
+    public Step getStep(Integer ideaId, Integer stepId, UriInfo uriInfo) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         session.beginTransaction();
-        Object obj = session.get(Step.class, id);
+        Query query= session.createQuery("select s from Step s where s.stepId in (select s.stepId from Step s where s.idea.ideaId = :ideaId) and s.stepId = :stepId");
+        query.setParameter("ideaId", ideaId);
+        query.setParameter("stepId", stepId);
+        Object obj = query.uniqueResult();
         if (obj == null) {
-            throw new DataNotFoundException("Step with id " + id + " not found");
+            throw new DataNotFoundException("Step with id " + stepId + " not found in Idea id " + ideaId);
         }
         return (Step)obj;
     }
