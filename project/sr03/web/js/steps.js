@@ -4,12 +4,15 @@ function loadSteps(idIdea)
 
 
     var div = document.getElementById("steps");
+    div.innerHTML = "<div class='loading_background'><img width='30px' src='rsc/loading.svg'/></div>";
+
     ajaxGet("http://localhost:8080/sr03/api/ideas/" + idIdea + "/steps/", function (reponse) {
         var steps = JSON.parse(reponse);
-        console.log(steps);
+        div.innerHTML = "";
         steps.forEach(function (step) {
 
             var div_step = document.createElement("div");
+            div_step.className = "listElt";
 
             var titreElt = document.createElement("h2");
             titreElt.textContent = step.title;
@@ -28,6 +31,7 @@ function loadSteps(idIdea)
 
             link.appendChild(div_step);
             div.appendChild(link)
+
         })
     });
 }
