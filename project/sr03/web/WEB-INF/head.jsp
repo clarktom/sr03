@@ -9,4 +9,6 @@
     <script src="js/ideas.js"></script>
     <script src="js/steps.js"></script>
     <title> Cherchorum </title>
+
+    <link rel="stylesheet" type="text/css" href="main.css">
 </head>
