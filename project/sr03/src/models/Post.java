@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tompu on 01/05/2017.
@@ -31,6 +33,31 @@ public class Post {
     @JoinColumn(name = "topicID")
     private Topic topic;
 
+    @Transient
+    private List<Link> links = new ArrayList<Link>();
+    public List<Link> getLinks() {
+        return links;
+    }
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+    public void addLink(String url, String rel) {
+        Link link = new Link();
+        link.setLink(url);
+        link.setRel(rel);
+        links.add(link);
+    }
+
+    public Post() {
+
+    }
+
+    public Post(String text, Timestamp date, Researcher researcher, Topic topic) {
+        this.text = text;
+        this.date = date;
+        this.researcher = researcher;
+        this.topic = topic;
+    }
 
     public int getPostId() {
         return postId;
