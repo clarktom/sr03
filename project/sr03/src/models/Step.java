@@ -43,8 +43,10 @@ public class Step {
     @ManyToOne
     @JoinColumn(name = "statusID")
     private Statustype statustype;
-    @OneToMany(mappedBy = "step", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Topic> topics;
+//    @OneToMany(mappedBy = "step", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    private Set<Topic> topics;
+    @OneToOne(mappedBy = "step", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Topic topic;
 
     @Transient
     private List<Link> links = new ArrayList<Link>();
@@ -159,12 +161,22 @@ public class Step {
         this.statustype = statustype;
     }
 
-    @JsonIgnore
-    public Set<Topic> getTopics() {
-        return topics;
+//    @JsonIgnore
+//    public Set<Topic> getTopics() {
+//        return topics;
+//    }
+//    public void setTopics(Set<Topic> topics) {
+//        this.topics = topics;
+//    }
+
+    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="topicId")
+    @JsonIdentityReference(alwaysAsId=true)
+    @JsonProperty("topicId")
+    public Topic getTopic() {
+        return topic;
     }
-    public void setTopics(Set<Topic> topics) {
-        this.topics = topics;
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
 }

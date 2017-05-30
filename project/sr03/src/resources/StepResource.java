@@ -35,30 +35,29 @@ public class StepResource {
                          @PathParam("stepId") Integer stepId,
                          @Context UriInfo uriInfo) {
         Step step = stepService.getStep(ideaId, stepId, uriInfo);
-//        step.addLink(getUriForSelf(uriInfo, step), "self");
-//        step.addLink(getUriForPosts(uriInfo, step), "posts");
+        step.addLink(getUriForSelf(uriInfo, step), "self");
+        step.addLink(getUriForTopic(uriInfo, step), "topic");
         return step;
     }
 
-//    private String getUriForPosts(UriInfo uriInfo, Step step) {
-//        return uriInfo.getBaseUriBuilder()
-//                .path(IdeaResource.class)
-//                .path(IdeaResource.class, "getStepResource")
-//                .resolveTemplate("ideaId", step.getIdea().getIdeaId())
-//                .path(StepResource.class, "getPostResource")
-//                .resolveTemplate("stepId", step.getStepId())
-//                .build()
-//                .toString();
-//    }
-//
-//    private String getUriForSelf(UriInfo uriInfo, Step step) {
-//        return uriInfo.getBaseUriBuilder()
-//                .path(IdeaResource.class)
-//                .path(IdeaResource.class, "getStepResource")
-//                .path(Integer.toString(step.getStepId()))
-//                .resolveTemplate("ideaId", step.getIdea().getIdeaId())
-//                .build()
-//                .toString();
-//    }
+    private String getUriForTopic(UriInfo uriInfo, Step step) {
+        return uriInfo.getBaseUriBuilder()
+                .path(IdeaResource.class)
+                .path(IdeaResource.class, "getTopicResource")
+                .resolveTemplate("ideaId", step.getIdea().getIdeaId())
+                .path(Integer.toString(step.getTopic().getTopicId()))
+                .build()
+                .toString();
+    }
+
+    private String getUriForSelf(UriInfo uriInfo, Step step) {
+        return uriInfo.getBaseUriBuilder()
+                .path(IdeaResource.class)
+                .path(IdeaResource.class, "getStepResource")
+                .path(Integer.toString(step.getStepId()))
+                .resolveTemplate("ideaId", step.getIdea().getIdeaId())
+                .build()
+                .toString();
+    }
 
 }

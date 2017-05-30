@@ -26,7 +26,7 @@ public class Topic {
     private Timestamp creationDate;
     @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Post> posts;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "stepID")
     private Step step;
 
