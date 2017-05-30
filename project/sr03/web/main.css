@@ -1,0 +1,57 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+html
+{
+    background: rgb(210, 221, 222) none repeat scroll 0% 0%;
+    font-family: "Comic Sans MS";
+}
+
+body
+{
+    width: 80%;
+    margin:auto;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    height: 100%;
+    background: white;
+}
+
+a, a:visited
+{
+    text-decoration:none;
+    color:inherit;
+}
+
+.listElt
+{
+    background: rgb(182, 218, 245);
+    padding: 5px;
+    margin-top:5px;
+    border-top: 1px solid black;
+    border-black: 1px solid black;
+}
+
+.listElt:hover
+{
+    background: rgb(211, 235, 245);
+    box-shadow: 1px 1px 1px black;
+}
+
+
+.loading_background
+{
+    text-align: center;
+}
+
+
+
+.loading_background>img
+{
+    border: 2px solid rgba(0, 0, 0, 0.22);
+    padding: 5px;
+    border-radius: 9px;
+}
