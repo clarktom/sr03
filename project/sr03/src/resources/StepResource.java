@@ -7,6 +7,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tompu on 25/04/2017.
@@ -19,7 +20,7 @@ public class StepResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Step> getSteps() {
+    public List<Step> getSteps() {
         return stepService.getAllSteps();
     }
 
@@ -27,7 +28,7 @@ public class StepResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
     public Step getStep(@PathParam("id") Integer id, @Context UriInfo uriInfo) {
-        Step step = stepService.getStep(id);
+        Step step = stepService.getStep(id, uriInfo);
 //        step.addLink(getUriForSelf(id, uriInfo), "self");
 //        step.addLink(getUriForStep(id, uriInfo), "self");
         return step;

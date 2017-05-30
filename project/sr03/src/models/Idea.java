@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,6 +34,33 @@ public class Idea {
     private Categorytype categorytype;
     @OneToMany(mappedBy = "idea", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Step> steps;
+
+    @Transient
+    private List<Link> links = new ArrayList<Link>();
+    public List<Link> getLinks() {
+        return links;
+    }
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+    public void addLink(String url, String rel) {
+        Link link = new Link();
+        link.setLink(url);
+        link.setRel(rel);
+        links.add(link);
+    }
+
+    public Idea() {
+
+    }
+
+    public Idea(String title, String description, Date creationDate, Researcher researcher, Categorytype categorytype) {
+        this.title = title;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.researcher = researcher;
+        this.categorytype = categorytype;
+    }
 
 
     public int getIdeaId() {
