@@ -14,8 +14,7 @@
               <jsp:include page="WEB-INF/unconnected.jsp" />
           </c:when>
           <c:otherwise>
-              <html
-
+              <c:redirect url="/ideas.jsp"/>
           </c:otherwise>
       </c:choose>
     </article>
