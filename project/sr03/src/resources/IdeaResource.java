@@ -1,7 +1,6 @@
 package resources;
 
 import models.Idea;
-import models.Researcher;
 import services.IdeaService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -93,6 +92,11 @@ public class IdeaResource {
     @Path("/{ideaId}/topics")
     public TopicResource getTopicResource() {
         return new TopicResource();
+    }
+
+    @Path("/{ideaId}/steps")
+    public StepResource getStepResource() {
+        return new StepResource();
     }
 
 }
