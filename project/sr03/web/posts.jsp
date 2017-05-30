@@ -6,7 +6,7 @@
         <jsp:include page="WEB-INF/head.jsp" />
     </head>
 
-    <body onload="loadPosts(${param.ideaID}, ${param.topicId})">
+    <body onload="loadPosts(${param.ideaID}, ${param.topicID})">
         <jsp:include page="WEB-INF/header.jsp" />
         <div id="posts"></div>
     </body>

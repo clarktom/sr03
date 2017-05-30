@@ -5,10 +5,11 @@
 
 function loadPosts(idIdea, idTopic)
 {
-    var div = document.getElementById("steps");
-    ajaxGet("http://localhost:8080/sr03/api/ideas/" + idIdea + "/topics/" + idTopic, function (reponse) {
+    var div = document.getElementById("posts");
+    ajaxGet("http://localhost:8080/sr03/api/ideas/" + idIdea + "/topics/" + idTopic + "/posts", function (reponse) {
+        console.log("http://localhost:8080/sr03/api/ideas/" + idIdea + "/topics/" + idTopic + "/posts");
         var posts = JSON.parse(reponse);
-        console.log(steps);
+        console.log(posts);
         posts.forEach(function (post) {
 
             var titreElt = document.createElement("h2");
