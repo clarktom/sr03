@@ -17,20 +17,19 @@
 
                 <label for="username">Nom d'utilisateur <span class="requis">*</span></label>
                 <input type="username" id="username" name="username" value="<c:out value="${utilisateur.username}"/>" size="20" maxlength="60" />
-
+                <br/>
 
                 <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
                 <input type="password" id="motdepasse" name="motdepasse" value="" size="20" maxlength="20" />
-
+                <br/>
 
                 <input type="submit" value="Connexion" class="sansLabel" />
-
+                <br/>
 
                 <p class="erreur">${form.erreurs['username']}</p>
-                <p class="erreur">${form.erreurs['pass']}</p>
+                <p class="erreur">${form.erreurs['motdepasse']}</p>
                 <p class="erreur">${form.erreurs['all']}</p>
-                <p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
-
+                <%//<p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>%>
 
             </fieldset>
         </form>

@@ -6,11 +6,14 @@
 function loadPosts(idIdea, idTopic)
 {
     var div = document.getElementById("posts");
+    div.innerHTML = "<div class='loading_background'><img width='30px' src='rsc/loading.svg'/></div>";
     ajaxGet("http://localhost:8080/sr03/api/ideas/" + idIdea + "/topics/" + idTopic + "/posts", function (reponse) {
-        console.log("http://localhost:8080/sr03/api/ideas/" + idIdea + "/topics/" + idTopic + "/posts");
         var posts = JSON.parse(reponse);
-        console.log(posts);
+        div.innerHTML = "";
         posts.forEach(function (post) {
+
+            var div_post= document.createElement("div");
+            div_post.className = "listElt";
 
             var titreElt = document.createElement("h2");
             titreElt.textContent = post.postId;
@@ -18,8 +21,10 @@ function loadPosts(idIdea, idTopic)
             var contenuElt = document.createElement("p");
             contenuElt.textContent = post.text;
 
-            div.appendChild(titreElt);
-            div.appendChild(contenuElt);
+            div_post.appendChild(titreElt);
+            div_post.appendChild(contenuElt);
+
+            div.appendChild(div_post);
         })
     });
 }
