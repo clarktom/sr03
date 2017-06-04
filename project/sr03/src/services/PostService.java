@@ -45,6 +45,8 @@ public class PostService {
         if (obj == null) {
             throw new DataNotFoundException("Post with postId " + postId + " related to Topic with topicId " + topicId + " not found");
         }
+
+
         return (Post)obj;
     }
 
