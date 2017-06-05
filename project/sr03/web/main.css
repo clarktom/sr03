@@ -5,20 +5,20 @@
 
 html
 {
-    background: rgb(210, 221, 222) none repeat scroll 0% 0%;
-    font-family: "calibri";
-    height:100%;
+    background: linear-gradient(0deg,#4372B7 50%, #2E5D99 50%);
+    font-family: "MS Serif";
+    height: 100%;
 }
 
 body
 {
     width: 80%;
-    margin:auto;
-    border-left: 1px solid black;
-    border-right:  1px solid black;
-    min-height:100%;
-    background: white;
-    padding-bottom:1em;
+    min-height: 100%;
+    background: #FFF none repeat scroll 0% 0%;
+    padding-bottom: 1em;
+    margin: 10px auto;
+    border-radius: 3px;
+    box-shadow: 0px -1px 10px rgba(0, 0, 0, 0.3);
 }
 
 header
@@ -28,10 +28,10 @@ header
 
 h1
 {
-    font-family: "Consolas";
+
     font-size: 3em;
     text-shadow: -2px -1px 1px #000;
-    color: #B6DAF5;
+    color: #3F9BE0;
 }
 
 a, a:visited
@@ -42,19 +42,22 @@ a, a:visited
 
 .listElt
 {
-    background: rgb(182, 218, 245);
+    background: #3F9BE0 none repeat scroll 0% 0%;
     padding: 5px;
-    margin-top:5px;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    transition: background 0.5s;
+    transition: background 0.5s ease 0s, padding 0.2s ease 0s;
+    margin: 5px 0;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.31);
+    color: #FFF;
+    text-shadow: 1px 1px 1px #000;
+    border-left: 14px solid #2C67BF;
 }
 
 .listElt:hover
 {
-    background: rgb(211, 235, 245);
+    background: #66aee0 none repeat scroll 0% 0%;
     box-shadow: 0px 0px 5px rgba(0, 115, 129, 0.5);
-    transition: background 0.5s;
+    padding-left: 30px;
+    transition: background 0.5s, padding 0.2s;
 }
 
 
@@ -70,6 +73,11 @@ a, a:visited
     border: 2px solid rgba(0, 0, 0, 0.22);
     padding: 5px;
     border-radius: 9px;
+}
+
+fieldset
+{
+    padding:5px;
 }
 
 form
