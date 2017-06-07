@@ -82,4 +82,13 @@
         <url-pattern>/connexion</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SendPost</servlet-name>
+        <servlet-class>controllers.SendPostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendPost</servlet-name>
+        <url-pattern>/sendPost</url-pattern>
+    </servlet-mapping>
+
 </web-app>

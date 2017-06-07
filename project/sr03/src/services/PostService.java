@@ -15,14 +15,18 @@ public class PostService {
 
     public void addPost(Post post) {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        session.beginTransaction();
         try {
+            session.beginTransaction();
             session.save(post);
+            session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
             e.printStackTrace();
         }
-        session.getTransaction().commit();
+        finally {
+
+            session.close();
+        }
     }
 
     public List<Post> getAllPosts(Integer topicId) {

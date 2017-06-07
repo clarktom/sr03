@@ -10,6 +10,7 @@
     <script src="js/loadUserInfo.js"></script>
     <script src="js/steps.js"></script>
     <script src="js/posts.js"></script>
+    <script src="js/sendPost.js"></script>
 
     <title> Cherchorum </title>
 

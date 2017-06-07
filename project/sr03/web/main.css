@@ -85,9 +85,16 @@ form
     margin: 0px 10px;
 }
 
+#send_post_div
+{
+    text-align: center;
+}
+
 #send_post_textarea
 {
-    width: 100%
+    width: 90%;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.26);
 }
 
 #send_post_button
