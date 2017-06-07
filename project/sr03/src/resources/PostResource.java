@@ -23,6 +23,7 @@ public class PostResource {
         for (Post post : posts) {
             post.addLink(getUriForSelf(uriInfo, post), "self");
             post.addLink(getUriForResearcher(uriInfo, post), "researcher");
+            post.addLink("researcher_pseudo", post.getResearcher().getUsername());
         }
         return posts;
     }

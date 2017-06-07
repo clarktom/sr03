@@ -4,5 +4,5 @@
 
 
 <header>
-    <h1> Cherchorum </h1>
+    <h1> <a href="index.jsp"> Cherchorum </a> </h1>
 </header>
