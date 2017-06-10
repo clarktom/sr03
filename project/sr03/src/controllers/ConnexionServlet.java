@@ -59,6 +59,7 @@ public class ConnexionServlet extends HttpServlet {
         catch(HibernateException E)
         {
             this.getServletContext().getRequestDispatcher( ERROR_VUE ).forward( request, response );
+            E.printStackTrace();
         }
     }
 }

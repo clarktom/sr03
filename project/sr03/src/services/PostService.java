@@ -14,7 +14,7 @@ import java.util.List;
 public class PostService {
 
     public void addPost(Post post) {
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
             session.save(post);

@@ -19,8 +19,8 @@ import java.util.List;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "postID", nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "postID", nullable = true)
     private int postId;
     @Column(name = "text")
     private String text;
@@ -81,7 +81,7 @@ public class Post {
     }
 
     @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="researcherId")
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIdentityReference(alwaysAsId=false)
     @JsonProperty("researcherId")
     public Researcher getResearcher() {
         return researcher;

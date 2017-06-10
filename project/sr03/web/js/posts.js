@@ -10,6 +10,7 @@ function loadPosts(idIdea, idTopic)
     ajaxGet("http://localhost:8080/sr03/api/ideas/" + idIdea + "/topics/" + idTopic + "/posts", function (reponse) {
         var posts = JSON.parse(reponse);
         div.innerHTML = "";
+        posts.reverse();
         posts.forEach(function (post) {
 
             var div_post= document.createElement("div");

@@ -21,6 +21,7 @@ import forms.ConnexionForm;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import resources.PostResource;
 import resources.TopicResource;
@@ -49,9 +50,10 @@ public class SendPostServlet extends HttpServlet {
         //Création du post
         Post post = new Post();
         post.setText(txt);
-        post.setDate(new Timestamp(System.currentTimeMillis()/1000));
+        post.setDate(new Timestamp(System.currentTimeMillis()));
         post.setResearcher((Researcher)session.getAttribute(ATT_SESSION_USER));
         post.setTopic(new TopicService().getTopic(ideaId,topicId,null));
+
 
         //Ajout du post
         PostService service = new PostService();
