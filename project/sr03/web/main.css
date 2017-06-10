@@ -1,3 +1,10 @@
+
+@keyframes apparition_div {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+
 *{
     padding: 0;
     margin: 0;
@@ -40,16 +47,21 @@ a, a:visited
     color:inherit;
 }
 
-.listElt
+.listElt, fieldset
 {
     background: #3F9BE0 none repeat scroll 0% 0%;
     padding: 5px;
-    transition: background 0.5s ease 0s, padding 0.2s ease 0s;
     margin: 5px 0;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.31);
     color: #FFF;
     text-shadow: 1px 1px 1px #000;
     border-left: 14px solid #2C67BF;
+
+    transition: background 0.5s ease 0s, padding 0.2s ease 0s, opacity 1s;
+
+    animation-name: apparition_div;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
 }
 
 .listElt:hover
@@ -59,6 +71,7 @@ a, a:visited
     padding-left: 30px;
     transition: background 0.5s, padding 0.2s;
 }
+
 
 
 .loading_background
