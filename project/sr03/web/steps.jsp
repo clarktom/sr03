@@ -15,6 +15,7 @@
     <body onload="loadSteps(${param.ideaID})">
         <jsp:include page="WEB-INF/header.jsp" />
         <div id="steps"></div>
+        <jsp:include page="WEB-INF/footer.jsp" />
     </body>
 </html>
 

@@ -14,7 +14,6 @@
 
 <jsp:include page="WEB-INF/header.jsp" />
 <div id="userInfo"></div>
-<div id="articles"></div>
 </body>
 
 </html>

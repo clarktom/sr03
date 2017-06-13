@@ -7,41 +7,40 @@ function loadUserInfo(username) {
     ajaxGet(URL, function (reponse) {
         var userInfoElt = document.getElementById("userInfo");
 
+        var UserItemsList =  document.createElement("ul");
+
+        userInfoElt.appendChild(UserItemsList);
         var userInfo = JSON.parse(reponse);
 
         console.log(userInfo.username);
         var titreElt = document.createElement("p");
 
         //create and add the name div with id="name"
-        var divName = document.createElement("div");
-        divName.id = "name"
+        var liName = document.createElement("li");
         var nameText = document.createElement("span");
         nameText.textContent = "Nom : " + userInfo.name;
-        divName.appendChild(nameText)
-        userInfoElt.appendChild(divName);
+        liName.appendChild(nameText)
+        UserItemsList.appendChild(liName);
 
         //create the surname div with id="surname"
-        var divSurname = document.createElement("div");
-        divSurname.id = "surname"
+        var liSurname = document.createElement("li");
         var surnameText = document.createElement("span");
         surnameText.textContent = "Prénom : " + userInfo.surname;
-        divSurname.appendChild(surnameText)
-        userInfoElt.appendChild(divSurname);
+        liSurname.appendChild(surnameText);
+        UserItemsList.appendChild(liSurname);
 
         //create the username div with id="username"
-        var divUsername = document.createElement("div");
-        divUsername.id = "username"
+        var liUsername = document.createElement("li");
         var UsernameText = document.createElement("span");
         UsernameText.textContent = "Nom d'utilisateur : " + userInfo.username;
-        divUsername.appendChild(UsernameText)
-        userInfoElt.appendChild(divUsername);
+        liUsername.appendChild(UsernameText)
+        UserItemsList.appendChild(liUsername);
 
-        var divemail = document.createElement("div");
-        divemail.id = "email"
+        var liMail = document.createElement("li");
         var emailText = document.createElement("span");
         emailText.textContent = "Email : " + userInfo.email;
-        divemail.appendChild(emailText)
-        userInfoElt.appendChild(divemail);
+        liMail.appendChild(emailText)
+        UserItemsList.appendChild(liMail);
 
 
     });
