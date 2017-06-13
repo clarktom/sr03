@@ -17,7 +17,13 @@ function loadPosts(idIdea, idTopic)
             div_post.className = "listElt";
 
             var titreElt = document.createElement("h2");
-            titreElt.textContent = "Par " + post.links[2].rel + " le " + new Date(post.date);
+
+            var userLink = document.createElement("a");
+            userLink.href = "user.jsp?username=" + post.links[2].rel;
+            userLink.textContent =post.links[2].rel;
+
+
+            titreElt.innerHTML = "Par " + userLink.outerHTML + " le " + new Date(post.date);
 
             var contenuElt = document.createElement("p");
             contenuElt.textContent = post.text;

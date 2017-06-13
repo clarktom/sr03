@@ -10,8 +10,7 @@
 <html lang="en">
 
 <jsp:include page="WEB-INF/head.jsp" />
-
-<body onload="loadUserInfo('${sessionScope.sessionUtilisateur.getUsername()}')">
+<body onload="loadUserInfo('${param.username}')">
 
 <jsp:include page="WEB-INF/header.jsp" />
 <div id="userInfo"></div>

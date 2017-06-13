@@ -30,6 +30,7 @@ function loadIdeas() {
             link.href = "steps.jsp?ideaID=" + idea.ideaId
 
 
+
             link.appendChild(div_idea);
             articlesElt.appendChild(link)
 

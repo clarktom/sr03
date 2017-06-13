@@ -11,6 +11,7 @@
     <script src="js/steps.js"></script>
     <script src="js/posts.js"></script>
     <script src="js/sendPost.js"></script>
+    <script src="js/loadFooter.js"></script>
 
     <title> Cherchorum </title>
 
