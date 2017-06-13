@@ -18,5 +18,8 @@
           </c:otherwise>
       </c:choose>
     </article>
+
+  <jsp:include page="WEB-INF/footer.jsp" />
+
   </body>
 </html>

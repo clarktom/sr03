@@ -5,9 +5,11 @@
 
     <jsp:include page="WEB-INF/head.jsp" />
 
-    <body onload="loadIdeas()">
+    <body onload="loadIdeas() ; loadFooter('${sessionScope.sessionUtilisateur.getUsername()}')">
         <jsp:include page="WEB-INF/header.jsp" />
         <div id="articles"></div>
+        <jsp:include page="WEB-INF/footer.jsp" />
     </body>
+
 
 </html>
