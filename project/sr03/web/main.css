@@ -44,7 +44,7 @@ h1
 a, a:visited
 {
     text-decoration:none;
-    color:inherit;
+    color:white;
 }
 
 .listElt, fieldset
@@ -110,7 +110,12 @@ form
 
 #send_post_button
 {
-
+    width: 90%;
+    height: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 2px;
 }
 
 .post
@@ -121,4 +126,31 @@ form
     border-radius: 2px;
     color:white;
     padding: 5px;
+    display: table;
+    width: 96%;
+    padding-left:10px;
+    padding-right: 10px;
 }
+
+.left_elt
+{
+    display: table-cell;
+    width: 10%;
+    color:white;
+    font-weight: bold;
+}
+
+.top_elt
+{
+    font-size: 10px;
+    margin-bottom: 12px;
+    vertical-align: top;
+}
+
+.right_elt
+{
+    display: table-cell;
+    padding-bottom: 5px;
+    vertical-align: top;
+}
+
