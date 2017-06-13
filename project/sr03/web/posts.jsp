@@ -15,6 +15,7 @@
             <button id="send_post_button" onclick="sendPost(${param.ideaID}, ${param.topicID})"> Envoyer le post</button>
         </div>
         <div id="posts"></div>
+        <jsp:include page="WEB-INF/footer.jsp" />
     </body>
 </html>
 
