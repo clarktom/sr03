@@ -1,0 +1,4 @@
+#Tue Jun 13 19:43:30 CEST 2017
+base.0=C\:\\Users\\tompu\\dev\\sr03\\project\\app\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+renamed.0=classes.dex
+file.0=C\:\\Users\\tompu\\dev\\sr03\\project\\app\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
