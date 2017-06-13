@@ -14,7 +14,7 @@ function loadPosts(idIdea, idTopic)
         posts.forEach(function (post) {
 
             var div_post= document.createElement("div");
-            div_post.className = "listElt";
+            div_post.className = "post";
 
             var titreElt = document.createElement("h2");
 

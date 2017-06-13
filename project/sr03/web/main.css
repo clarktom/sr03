@@ -12,8 +12,8 @@
 
 html
 {
-    background: linear-gradient(0deg,#4372B7 50%, #2E5D99 50%);
-    font-family: "MS Serif";
+    background: linear-gradient(0deg, #afafb7 50%, #a9a9b1 50%);
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
     height: 100%;
 }
 
@@ -21,7 +21,7 @@ body
 {
     width: 80%;
     min-height: 100%;
-    background: #FFF none repeat scroll 0% 0%;
+    background: #626262 none repeat scroll 0% 0%;
     padding-bottom: 1em;
     margin: 10px auto;
     border-radius: 3px;
@@ -37,8 +37,8 @@ h1
 {
 
     font-size: 3em;
-    text-shadow: -2px -1px 1px #000;
-    color: #3F9BE0;
+    text-shadow: -1px -1px 6px #000;
+    color: #fcfffa;
 }
 
 a, a:visited
@@ -49,16 +49,14 @@ a, a:visited
 
 .listElt, fieldset
 {
-    background: #3F9BE0 none repeat scroll 0% 0%;
+    background: #2d2925 none repeat scroll 0% 0%;
     padding: 5px;
-    margin: 5px 0;
+    margin: 5px 0px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.31);
-    color: #FFF;
+    color: #FFF0D7;
     text-shadow: 1px 1px 1px #000;
-    border-left: 14px solid #2C67BF;
-
-    transition: background 0.5s ease 0s, padding 0.2s ease 0s, opacity 1s;
-
+    border-left: 14px solid #51A9FF;
+    transition: background 0.5s ease 0s, padding 0.2s ease 0s, opacity 1s ease 0s;
     animation-name: apparition_div;
     animation-duration: 1s;
     animation-iteration-count: 1;
@@ -113,4 +111,14 @@ form
 #send_post_button
 {
 
+}
+
+.post
+{
+    margin: 5px;
+    border: 1px solid #9d9d9d;
+    background: #272727 none repeat scroll 0% 0%;
+    border-radius: 2px;
+    color:white;
+    padding: 5px;
 }
