@@ -6,6 +6,7 @@
     </c:when>
 </c:choose>
 
+
 <html>
     <head>
         <jsp:include page="WEB-INF/head.jsp" />
