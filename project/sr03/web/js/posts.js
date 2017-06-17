@@ -6,7 +6,7 @@
 function loadPosts(idIdea, idTopic)
 {
     var div = document.getElementById("posts");
-    div.innerHTML = "<div class='loading_background'><img width='30px' src='rsc/loading.svg'/></div>";
+    div.innerHTML = div.innerHTML+"<div class='loading_background'><img width='30px' src='rsc/loading.svg'/></div>";
     ajaxGet("http://localhost:8080/sr03/api/ideas/" + idIdea + "/topics/" + idTopic + "/posts", function (reponse) {
         var posts = JSON.parse(reponse);
         div.innerHTML = "";

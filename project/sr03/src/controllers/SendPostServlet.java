@@ -29,9 +29,27 @@ import services.HibernateUtil;
 import services.PostService;
 import services.TopicService;
 
+
+
 public class SendPostServlet extends HttpServlet {
     public static final String VUE              = "/index.jsp";
     public static final String ATT_SESSION_USER = "sessionUtilisateur";
+
+
+    public static String escapeHTML(String s) {
+        StringBuilder out = new StringBuilder(Math.max(16, s.length()));
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c > 127 || c == '"' || c == '<' || c == '>' || c == '&') {
+                out.append("&#");
+                out.append((int) c);
+                out.append(';');
+            } else {
+                out.append(c);
+            }
+        }
+        return out.toString();
+    }
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         /* Affichage de la page de connexion */
@@ -40,23 +58,28 @@ public class SendPostServlet extends HttpServlet {
 
     public void doPost( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         //Récupérer les données du post
-        String txt = request.getParameter("text");
+        String txt = escapeHTML(request.getParameter("text"));
         int ideaId = Integer.parseInt( request.getParameter("ideaId"));
         int topicId = Integer.parseInt( request.getParameter("topicId"));
 
+        System.out.println(txt);
         //Récupération de la session
         HttpSession session  = request.getSession();
+        if(session.getAttribute(ATT_SESSION_USER) != null)
+        {
+            //Création du post
+            Post post = new Post();
+            post.setText(txt);
+            post.setDate(new Timestamp(System.currentTimeMillis()));
+            post.setResearcher((Researcher)session.getAttribute(ATT_SESSION_USER));
+            post.setTopic(new TopicService().getTopic(ideaId,topicId,null));
 
-        //Création du post
-        Post post = new Post();
-        post.setText(txt);
-        post.setDate(new Timestamp(System.currentTimeMillis()));
-        post.setResearcher((Researcher)session.getAttribute(ATT_SESSION_USER));
-        post.setTopic(new TopicService().getTopic(ideaId,topicId,null));
+
+            //Ajout du post
+            PostService service = new PostService();
+            service.addPost(post);
+        }
 
 
-        //Ajout du post
-        PostService service = new PostService();
-        service.addPost(post);
     }
 }
